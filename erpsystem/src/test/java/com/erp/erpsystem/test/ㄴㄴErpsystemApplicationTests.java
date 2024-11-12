@@ -10,7 +10,7 @@ import com.erp.erpsystem.db.Account;
 import com.erp.erpsystem.db.AccountRepository;
 
 @SpringBootTest
-class ErpsystemApplicationTests {
+class ㄴㄴErpsystemApplicationTests {
 
     @Autowired
     private AccountRepository accountRepository;

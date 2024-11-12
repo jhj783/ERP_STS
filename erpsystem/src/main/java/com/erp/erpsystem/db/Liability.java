@@ -1,6 +1,6 @@
 package com.erp.erpsystem.db;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,7 +32,7 @@ public class Liability {
     private Double originValue; // 부채의 원래 가치
 
     @Column(nullable = false)
-    private LocalDate date; // 부채 발생 날짜
+    private LocalDateTime date; // 부채 발생 날짜
 
     @Column(nullable = false)
     private Double interestRate; // 이자율
@@ -41,5 +41,5 @@ public class Liability {
     private String interestPeriod; // 이자 주기
 
     @Column(nullable = false)
-    private LocalDate maturityDate; // 만기일
+    private LocalDateTime maturityDate; // 만기일
 }

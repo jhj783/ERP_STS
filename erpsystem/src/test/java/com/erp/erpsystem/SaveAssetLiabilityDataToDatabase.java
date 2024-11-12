@@ -1,6 +1,5 @@
 package com.erp.erpsystem;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
@@ -47,10 +46,10 @@ class SaveAssetLiabilityDataToDatabase {
         //부채 내용
         List<Liability> liabilities = new ArrayList<>();
 
-        liabilities.add(createLiability("신한은행 대출", 10000000.0, "유동", 10000000.0, LocalDate.of(2023, 1, 1), 3.5, "매월", LocalDate.of(2025, 1, 1)));
-        liabilities.add(createLiability("신한은행 대출", 9000000.0, "유동", 9000000.0, LocalDate.of(2023, 4, 23), 3.3, "매월", LocalDate.of(2025, 4, 23)));
-        liabilities.add(createLiability("우리은행 대출", 10000000.0, "유동", 10000000.0, LocalDate.of(2023, 9, 15), 2.9, "매월", LocalDate.of(2026, 3, 15)));
-        liabilities.add(createLiability("농협은행 대출", 8000000.0, "유동", 8000000.0, LocalDate.of(2024, 2, 10), 2.7, "매월", LocalDate.of(2026, 2, 10)));
+        liabilities.add(createLiability("신한은행 대출", 8850000.0, "유동", 5000000.0, LocalDateTime.of(2023, 1, 1,0,0), 3.5, "매월", LocalDateTime.of(2025, 1, 1,0,0)));
+        liabilities.add(createLiability("하나은행 대출", 7173000.0, "유동", 4500000.0, LocalDateTime.of(2023, 4, 23,0,0), 3.3, "매월", LocalDateTime.of(2025, 4, 23,0,0)));
+        liabilities.add(createLiability("우리은행 대출", 6885000.0, "유동", 5000000.0, LocalDateTime.of(2023, 9, 15,0,0), 2.9, "매월", LocalDateTime.of(2026, 3, 15,0,0)));
+        liabilities.add(createLiability("농협은행 대출", 5593500.0, "유동", 4500000.0, LocalDateTime.of(2024, 2, 10,0,0), 2.7, "매월", LocalDateTime.of(2026, 2, 10,0,0)));
         
         for (Liability liability : liabilities) {
             this.liabilityRepository.save(liability);
@@ -63,14 +62,14 @@ class SaveAssetLiabilityDataToDatabase {
         assets_Liabilities_log.add(createAssetLiabilityLog("예치금", 100000000.0, "new 자산", LocalDateTime.of(2023, 1, 1, 0, 0)));
         assets_Liabilities_log.add(createAssetLiabilityLog("토지", 30000000.0, "new 자산", LocalDateTime.of(2023, 1, 1, 0, 0)));
         assets_Liabilities_log.add(createAssetLiabilityLog("건물", 100000000.0, "new 자산", LocalDateTime.of(2023, 1, 1, 0, 0)));
-        assets_Liabilities_log.add(createAssetLiabilityLog("신한은행 대출", 10000000.0, "new 부채", LocalDateTime.of(2023, 1, 1, 0, 0)));
-        assets_Liabilities_log.add(createAssetLiabilityLog("신한은행 대출", 9000000.0, "new 부채", LocalDateTime.of(2023, 4, 23, 0, 0)));
+        assets_Liabilities_log.add(createAssetLiabilityLog("신한은행 대출", 5000000.0, "new 부채", LocalDateTime.of(2023, 1, 1, 0, 0)));
+        assets_Liabilities_log.add(createAssetLiabilityLog("신한은행 대출", 4500000.0, "new 부채", LocalDateTime.of(2023, 4, 23, 0, 0)));
         assets_Liabilities_log.add(createAssetLiabilityLog("법인차량", 50000000.0, "new 자산", LocalDateTime.of(2023, 5, 3, 0, 0)));
-        assets_Liabilities_log.add(createAssetLiabilityLog("우리은행 대출", 10000000.0, "new 부채", LocalDateTime.of(2023, 9, 15, 0, 0)));
-        assets_Liabilities_log.add(createAssetLiabilityLog("토지", 10000000.0, "감가상각", LocalDateTime.of(2024, 1, 1, 0, 0)));
-        assets_Liabilities_log.add(createAssetLiabilityLog("건물", 110000000.0, "감가상각", LocalDateTime.of(2024, 1, 1, 0, 0)));
-        assets_Liabilities_log.add(createAssetLiabilityLog("법인차량", 30000000.0, "감가상각", LocalDateTime.of(2024, 2, 10, 0, 0)));
-        assets_Liabilities_log.add(createAssetLiabilityLog("농협은행 대출", 8000000.0, "new 부채", LocalDateTime.of(2024, 2, 10, 0, 0)));
+        assets_Liabilities_log.add(createAssetLiabilityLog("우리은행 대출", 5000000.0, "new 부채", LocalDateTime.of(2023, 9, 15, 0, 0)));
+        assets_Liabilities_log.add(createAssetLiabilityLog("토지", 1022100.0, "감가상각", LocalDateTime.of(2024, 1, 1, 0, 0)));
+        assets_Liabilities_log.add(createAssetLiabilityLog("건물", 11030440.0, "감가상각", LocalDateTime.of(2024, 1, 1, 0, 0)));
+        assets_Liabilities_log.add(createAssetLiabilityLog("법인차량", -7706500.0, "감가상각", LocalDateTime.of(2024, 1, 1, 0, 0)));
+        assets_Liabilities_log.add(createAssetLiabilityLog("농협은행 대출", 4500000.0, "new 부채", LocalDateTime.of(2024, 2, 10, 0, 0)));
         
         for (AssetLiabilityLog asset_liability_log : assets_Liabilities_log) {
             this.assetLiabilityLogRepository.save(asset_liability_log);
@@ -91,16 +90,16 @@ class SaveAssetLiabilityDataToDatabase {
     }
     
     // 부채 양식
-    private Liability createLiability(String name, Double currentValue, String type, Double originValue, LocalDate date, Double interestRate, String interestPeriod, LocalDate maturityDate) {
+    private Liability createLiability(String name, Double currentValue, String type, Double originValue, LocalDateTime localDateTime, Double interestRate, String interestPeriod, LocalDateTime localDateTime2) {
         Liability liability = new Liability();
         liability.setName(name);
         liability.setCurrentValue(currentValue);
         liability.setType(type);
         liability.setOriginValue(originValue);
-        liability.setDate(date);
+        liability.setDate(localDateTime);
         liability.setInterestRate(interestRate);
         liability.setInterestPeriod(interestPeriod);
-        liability.setMaturityDate(maturityDate);
+        liability.setMaturityDate(localDateTime2);
         return liability;
     }
     

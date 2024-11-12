@@ -17,7 +17,7 @@ import lombok.Setter;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Istuno: 농협 API 요청 고유부호
+    private Long id; // Id
 
     @Column(nullable = false)
     private Double amount; // 거래 금액
