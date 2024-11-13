@@ -9,8 +9,9 @@ import java.util.List;
 
 public interface AssetLiabilityLogRepository extends JpaRepository<AssetLiabilityLog, Long> {
 
-    @Query("SELECT a.name, a.amount FROM AssetLiabilityLog a WHERE a.description = :description AND a.date BETWEEN :startDate AND :endDate")
-    List<Object[]> findNameAndAmountByDescriptionAndDateRange(
+	// 감가상각
+    @Query("SELECT SUM(a.amount) FROM AssetLiabilityLog a WHERE a.description = :description AND a.date BETWEEN :startDate AND :endDate")
+    Double findNameAndAmountByDescriptionAndDateRange(
         @Param("description") String description,
         @Param("startDate") LocalDateTime startDate,
         @Param("endDate") LocalDateTime endDate
@@ -29,11 +30,14 @@ public interface AssetLiabilityLogRepository extends JpaRepository<AssetLiabilit
         @Param("endDate") LocalDateTime endDate
     );
     
-    @Query("SELECT a.amount FROM AssetLiabilityLog a WHERE a.description = :description AND a.name IN :names")
-    List<Double> findAmountsByDescriptionAndNames(
+    // 비유동자산
+    @Query("SELECT a.name, a.amount FROM AssetLiabilityLog a WHERE a.description = :description AND a.name IN :names AND a.date <= :endDate")
+    List<Object[]> findAmountsByDescriptionAndNames(
         @Param("description") String description,
-        @Param("names") List<String> names
+        @Param("names") List<String> names,
+        @Param("endDate") LocalDateTime endDate
     );
+
     
     @Query("SELECT SUM(a.amount) FROM AssetLiabilityLog a WHERE a.description = :description AND a.date <= :endDate")
     Double findTotalAmountByWriteDownDateRange(
