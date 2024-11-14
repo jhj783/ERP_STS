@@ -11,4 +11,10 @@ public class ERP_Controller {
     public String hello() {
         return "Hello World";
     }
+    
+    @GetMapping("/test")
+    public String showTestPage() {
+        return "test"; // "test"는 templates 폴더의 test.html 파일을 의미합니다.
+    }
+    
 }

@@ -35,4 +35,17 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
         @Param("startDate") LocalDateTime startDate,
         @Param("endDate") LocalDateTime endDate
     );
+    
+    // ERP_ChartsService.운영비용 분포
+    @Query(value = "SELECT description, SUM(amount) FROM account WHERE description IN :descriptions AND date BETWEEN :startDate AND :endDate GROUP BY description", nativeQuery = true)
+    List<Object[]> findAccountSummaries(
+        @Param("descriptions") List<String> descriptions,
+        @Param("startDate") LocalDateTime startDate,
+        @Param("endDate") LocalDateTime endDate
+    );
+
+
+
+  	 	
+    
 }
