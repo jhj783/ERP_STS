@@ -5,8 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 //import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.context.SpringBootTest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erp.erpsystem.db.AccountRepository;
@@ -24,8 +25,12 @@ public class FinancialStatementService {
     private AssetLiabilityLogRepository assetLiabilityLogRepository;
 	
 	@Autowired
-    private LiabilityRepository liabilityRepository;
+    private  LiabilityRepository liabilityRepository;
 	
+	/*
+	@Autowired
+	private GetQuartersService getQuartersService;
+	*/
 	
 	
     // 손익계산서.수익.매출액 // 
@@ -267,6 +272,10 @@ public class FinancialStatementService {
     /*
     @Test
     void functionTest() {
+    	LocalDateTime[] previousQuarter = getQuartersService.getPreviousQuartersDate();
+    	LocalDateTime startDate = previousQuarter[0];
+    	LocalDateTime endDate = previousQuarter[1];
+    	
     	System.out.println();
     	System.out.println("매출액: "+getSales(startDate, endDate)); System.out.println();
     	System.out.println("원가: "+getRawMaterials(startDate,endDate));System.out.println();
@@ -275,26 +284,26 @@ public class FinancialStatementService {
     	System.out.println("이자비용: "+getInterest(startDate,endDate));System.out.println();
     	System.out.println("합계비용: "+getTotalCost(startDate,endDate));System.out.println();
     	System.out.println("순이익: "+getNetProfit(startDate,endDate));System.out.println();
-    	System.out.println("현금: "+getCash());System.out.println();
-    	System.out.println("합계유동자산: "+getCurrentAssets());System.out.println();
-    	System.out.println("비유동자산목록List: "+getAssetLists());System.out.println();
-    	System.out.println("감가상각누계: "+getWriteDown());System.out.println();
-    	System.out.println("합계비유동자산: "+getTotalNonCurrentAssets());System.out.println();
-    	System.out.println("총자산: "+getTotalAssets());System.out.println();
-    	System.out.println("단기차입금: "+getShortTermDebt());System.out.println();
-    	System.out.println("합계유동부채: "+getCurrentLiabilities());System.out.println();
-    	System.out.println("장기차입금: "+getLongTermDebt());System.out.println();
-    	System.out.println("합계비유동부채: "+getNonCurrentLiabilities());System.out.println();
-    	System.out.println("총부채: "+getTotalLiabilities());System.out.println();
-    	System.out.println("자본금: "+getEquity());System.out.println();
-    	System.out.println("이익잉여금: "+getRetainedEarnings());System.out.println();
-    	System.out.println("총자본: "+getTotalCapital());System.out.println();
-    	System.out.println("총부채및자본: "+getTotalLiabilityCapital());System.out.println();
-    	System.out.println("투자활동: "+getCashFlowFromInvestmentActivities());System.out.println();
-    	System.out.println("재무활동: "+getCashFlowFromFinancialActivities());System.out.println();
-    	System.out.println("기초이익잉여금: "+getBasicRetainedEarnings());System.out.println();
-    	System.out.println("기말이익잉여금: "+getEdRetainedEarnings());System.out.println();
-    	System.out.println("총자본: "+getAllCapital());System.out.println();
+    	System.out.println("현금: "+getCash(endDate));System.out.println();
+    	System.out.println("합계유동자산: "+getCurrentAssets(endDate));System.out.println();
+    	System.out.println("비유동자산목록List: "+getAssetLists(endDate));System.out.println();
+    	System.out.println("감가상각누계: "+getWriteDown(endDate));System.out.println();
+    	System.out.println("합계비유동자산: "+getTotalNonCurrentAssets(endDate));System.out.println();
+    	System.out.println("총자산: "+getTotalAssets(endDate));System.out.println();
+    	System.out.println("단기차입금: "+getShortTermDebt(endDate));System.out.println();
+    	System.out.println("합계유동부채: "+getCurrentLiabilities(endDate));System.out.println();
+    	System.out.println("장기차입금: "+getLongTermDebt(endDate));System.out.println();
+    	System.out.println("합계비유동부채: "+getNonCurrentLiabilities(endDate));System.out.println();
+    	System.out.println("총부채: "+getTotalLiabilities(endDate));System.out.println();
+    	System.out.println("자본금: "+getEquity(endDate));System.out.println();
+    	System.out.println("이익잉여금: "+getRetainedEarnings(endDate));System.out.println();
+    	System.out.println("총자본: "+getTotalCapital(endDate));System.out.println();
+    	System.out.println("총부채및자본: "+getTotalLiabilityCapital(endDate));System.out.println();
+    	System.out.println("투자활동: "+getCashFlowFromInvestmentActivities(startDate, endDate));System.out.println();
+    	System.out.println("재무활동: "+getCashFlowFromFinancialActivities(startDate, endDate));System.out.println();
+    	System.out.println("기초이익잉여금: "+getBasicRetainedEarnings(startDate, endDate));System.out.println();
+    	System.out.println("기말이익잉여금: "+getEdRetainedEarnings(endDate));System.out.println();
+    	System.out.println("총자본: "+getAllCapital(startDate, endDate));System.out.println();
     }
     */
 }

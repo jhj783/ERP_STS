@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/fs")
-public class FinancialStatementController {
-
+public class RestApiController {
+	
     @Autowired
     private FinancialStatementService financialStatementService;
 
@@ -53,4 +53,5 @@ public class FinancialStatementController {
 
         return summary;
     }
+    
 }
