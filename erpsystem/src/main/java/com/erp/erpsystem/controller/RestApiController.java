@@ -1,7 +1,9 @@
 package com.erp.erpsystem.controller;
 
+import com.erp.erpsystem.response.ChartsResponse;
 import com.erp.erpsystem.response.FinancialSummaryResponse;
 import com.erp.erpsystem.service.FinancialStatementService;
+import com.erp.erpsystem.service.ErpChartsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,17 +11,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("/api/fs")
+@RequestMapping("/api/")
 public class RestApiController {
 	
     @Autowired
     private FinancialStatementService financialStatementService;
+    
+    @Autowired
+    private ErpChartsService erpChartsService;
 
-    // 여러 재무 데이터를 한꺼번에 가져오는 API
-    @GetMapping("/summary")
+    // 재무제표 API
+    @GetMapping("/fs")
     public FinancialSummaryResponse getFinancialSummary(
             @RequestParam(name = "startDate") String startDate, 
             @RequestParam(name = "endDate") String endDate) {
@@ -54,4 +60,30 @@ public class RestApiController {
         return summary;
     }
     
+	// 차트 API
+    @GetMapping("/charts")
+    public ChartsResponse getChartsData(
+            @RequestParam(name = "startDate") String startDate, 
+            @RequestParam(name = "endDate") String endDate) {
+        LocalDateTime sDate = LocalDateTime.parse(startDate);
+        LocalDateTime eDate = LocalDateTime.parse(endDate);
+
+        ChartsResponse chartsResponse = new ChartsResponse();
+        chartsResponse.setSalesAndNetProfit(erpChartsService.getSalesAndNetProfit(sDate, eDate));
+        chartsResponse.setFinancialRatios(erpChartsService.getFinancialRatios(sDate, eDate));
+        chartsResponse.setCostSummary(erpChartsService.getCostSummary(sDate, eDate));
+        chartsResponse.setCapitalLiabilityRatio(erpChartsService.getCapitalLiabilityRatio(sDate, eDate));
+
+        return chartsResponse;
+    }
+    
+    // 테스트 차트
+    @GetMapping("/asdf")  // "/asdf" URL에 접근 시 asdf.html을 반환
+    public String showAsdfPage() {
+        return "asdf";  // templates 폴더에서 asdf.html을 반환
+    }
+    @GetMapping("/test") 
+    public String showTest() {
+        return "test";  // asdf.html을 반환합니다. (자동으로 templates 폴더에서 찾습니다.)
+    }
 }

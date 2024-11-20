@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erp.erpsystem.db.AccountRepository;
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 
 //import org.junit.jupiter.api.Test;
 //import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +19,7 @@ import com.google.gson.Gson;
 
 //@SpringBootTest
 @Service
-public class ERP_ChartsService {	
+public class ErpChartsService {	
 	@Autowired
 	private AccountRepository AccountRepository;
 	
@@ -30,41 +30,8 @@ public class ERP_ChartsService {
 	private FinancialStatementService financialStatementService;
 	
 	
-	// 차트.재무 비율 분석 // (테스트 필요)
-	public String getFinancialRatios(LocalDateTime sDate, LocalDateTime eDate) {
-		List<Double> roeList = new ArrayList<>();
-	    List<Double> roaList = new ArrayList<>();
-
-		for (LocalDateTime[] dates :getQuartersService.getPreviousQuartersDates()) {
-			roeList.add(getReturnOnEquity(dates[0],dates[1]));
-			roeList.add(getReturnOnAssets(dates[0],dates[1]));
-		}
-		
-		Map<String, List<Double>> financialRatios = new HashMap<>();
-	    financialRatios.put("ROEs", roeList);
-	    financialRatios.put("ROAs", roaList);
-	    
-	    Gson gson = new Gson();
-	    return gson.toJson(financialRatios);
-	}	
-	// ROE(자기 자본 이익률) // 순이익x100 / ((기초자기자본+기말자기자본)/2)
-	private Double getReturnOnEquity(LocalDateTime sDate, LocalDateTime eDate) {
-		Double a=financialStatementService.getNetProfit(sDate, eDate);
-		Double b=((financialStatementService.getTotalCapital(sDate) + financialStatementService.getTotalCapital(eDate))/2);
-		
-		return a*100/b;
-	}
-	// ROA(총 자산 이익률) // 순이익x100 / ((기초총자산+기말총자산)/2)
-	private Double getReturnOnAssets(LocalDateTime sDate, LocalDateTime eDate) {
-		Double a=financialStatementService.getNetProfit(sDate, eDate);
-		Double b=(financialStatementService.getTotalAssets(sDate)+financialStatementService.getTotalAssets(eDate))/2;
-		
-		return a*100/b;
-	}
-	
-	
 	// 차트.매출액(막대)&순이익(꺾은선) // (테스트 필요)
-	public String getSalesAndNetProfit(LocalDateTime sDate, LocalDateTime eDate) {
+	public Map<String, List<Double>> getSalesAndNetProfit(LocalDateTime sDate, LocalDateTime eDate) {
 		List<Double> salesList = new ArrayList<>();
 		List<Double> netProfitList = new ArrayList<>();
 		
@@ -77,13 +44,44 @@ public class ERP_ChartsService {
 		salesAndNetProfits.put("Sales", salesList);
 		salesAndNetProfits.put("NetProfit", netProfitList);
 	    
-	    Gson gson = new Gson();
-	    return gson.toJson(salesAndNetProfits);
+	    return salesAndNetProfits;
 	}
 	
 	
+	// 차트.재무 비율 분석 // (테스트 필요)
+	public Map<String, List<Double>> getFinancialRatios(LocalDateTime sDate, LocalDateTime eDate) {
+		List<Double> roeList = new ArrayList<>();
+	    List<Double> roaList = new ArrayList<>();
+
+		for (LocalDateTime[] dates :getQuartersService.getPreviousQuartersDates()) {
+			roeList.add(getReturnOnEquity(dates[0],dates[1]));
+			roaList.add(getReturnOnAssets(dates[0],dates[1]));
+		}
+		
+		Map<String, List<Double>> financialRatios = new HashMap<>();
+	    financialRatios.put("ROEs", roeList);
+	    financialRatios.put("ROAs", roaList);
+	    
+	    return financialRatios;
+	}	
+	// ROE(자기 자본 이익률) // 순이익x100 / ((기초자기자본+기말자기자본)/2)
+	private Double getReturnOnEquity(LocalDateTime sDate, LocalDateTime eDate) {
+		Double a=financialStatementService.getNetProfit(sDate, eDate);
+		Double b=(financialStatementService.getTotalCapital(sDate) + financialStatementService.getTotalCapital(eDate))/2;
+		
+		return a*100/b;
+	}
+	// ROA(총 자산 이익률) // 순이익x100 / ((기초총자산+기말총자산)/2)
+	private Double getReturnOnAssets(LocalDateTime sDate, LocalDateTime eDate) {
+		Double a=financialStatementService.getNetProfit(sDate, eDate);
+		Double b=(financialStatementService.getTotalAssets(sDate)+financialStatementService.getTotalAssets(eDate))/2;
+		
+		return a*100/b;
+	}
+			
+	
 	// 차트.운영비용 //
-	public String getCostSummary(LocalDateTime sDate, LocalDateTime eDate) {
+	public Map<String, Double> getCostSummary(LocalDateTime sDate, LocalDateTime eDate) {
 	    List<String> descriptions = List.of("복리후생비", "물류비", "공과금", "임대료", "소모품비", "관리비");
 	    
 	    List<Object[]> results = AccountRepository.findAccountSummaries(descriptions, sDate, eDate);
@@ -95,21 +93,29 @@ public class ERP_ChartsService {
 	        costSummaryMap.put(description, amount != null ? amount.doubleValue() : 0.0);
 	    }
 
-	    Gson gson = new Gson();
-	    return gson.toJson(costSummaryMap);
+	    return costSummaryMap;
 	}
 		
 	
 	// 차트.자본&부채 비율 // (테스트 필요)
-	public String getCapitalLiabilityRatio (LocalDateTime sDate, LocalDateTime eDate) {
+	public Map<String, Double> getCapitalLiabilityRatio (LocalDateTime sDate, LocalDateTime eDate) {
 		Map<String, Double> capitalLiabilityRatio = new HashMap<>();
 		capitalLiabilityRatio.put("Capital", financialStatementService.getTotalCapital(getQuartersService.getPreviousQuartersDate()[1]));
 		capitalLiabilityRatio.put("Libility", financialStatementService.getTotalLiabilities(getQuartersService.getPreviousQuartersDate()[1]));
 		
-		Gson gson = new Gson();
-	    return gson.toJson(capitalLiabilityRatio);
+	    return capitalLiabilityRatio;
 	}
 	
+	
+	// 차트.부채 // (테스트 필요)
+	public List<Double> getLiabilities (LocalDateTime sDate, LocalDateTime eDate){
+		List<Double>  liabilities = new ArrayList<>();
+		
+		for(LocalDateTime[] dates :getQuartersService.getPreviousQuartersDates()) {
+			liabilities.add(financialStatementService.getTotalLiabilities(dates[1]);)
+		}
+		return liabilities;
+	}
 	
 	/*
 	@Test
@@ -117,6 +123,12 @@ public class ERP_ChartsService {
 		LocalDateTime[] previousQuarter = getQuartersService.getPreviousQuartersDate();
 		System.out.println();
 		System.out.println(getCostSummary(previousQuarter[0], previousQuarter[1]));
+		System.out.println();
+		System.out.println(getCapitalLiabilityRatio(previousQuarter[0], previousQuarter[1]));
+		System.out.println();
+		System.out.println(getFinancialRatios(previousQuarter[0], previousQuarter[1]));
+		System.out.println();
+		System.out.println(getSalesAndNetProfit(previousQuarter[0], previousQuarter[1]));
 		System.out.println();
 	}
 	*/
