@@ -1,0 +1,133 @@
+/* 전체 페이지 스타일 */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+}
+
+/* 하단 컨테이너: 차트 영역 */
+.charts-container {
+    padding: 20px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+}
+
+/* 기본 차트 카드 스타일 */
+.chart-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 카드 내용물을 상하로 나누기 */
+.card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-text {
+    padding: 10px;
+    background-color: #ecf0f1;
+    text-align: center;
+}
+
+.card-text p {
+    margin: 0;
+    font-size: 1em;
+    color: #333;
+}
+
+.card-chart {
+    flex: 1;
+    padding: 10px;
+}
+
+/* 차트 캔버스 스타일 */
+.card-chart canvas {
+    width: 100% !important;
+    height: auto !important;
+    max-height: none;
+}
+
+/* 파이 차트 카드에만 적용되는 스타일 */
+.pie-chart-card {
+    height: 350px;
+}
+
+.pie-chart-card .card-chart canvas {
+    height: 100% !important;
+    max-height: 300px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .charts-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .charts-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .charts-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 재무제표 스타일 */
+.financial-statement {
+    margin: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.financial-statement h2, 
+.financial-statement h3, 
+.financial-statement p {
+    text-align: center;
+    margin: 0;
+    padding: 5px;
+}
+
+.financial-statement table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.financial-statement th, 
+.financial-statement td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.financial-statement th {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+.financial-statement td {
+    text-align: left;
+}
+
+.financial-statement tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.financial-statement strong {
+    font-weight: bold;
+}

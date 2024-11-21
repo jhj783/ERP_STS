@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>차트 대시보드</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" th:href="@{/dashboard.css}">
+	<link rel="stylesheet" th:href="@{/navbar.css}">
+</head>
+
+<body>
+    <!-- 네비게이션 바 포함 -->
+    <div th:insert="navbar :: navbar"></div>
+
+	<!-- 하단 컨테이너: 차트들 -->
+	<div class="charts-container">
+	    <!-- 1. 재무 비율 분석 차트 -->
+	    <div class="chart-card">
+	        <div class="card-content">
+	            <div class="card-text">
+	                <p>재무 비율 분석</p>
+	            </div>
+	            <div class="card-chart">
+	                <canvas id="financialRatioChart"></canvas>
+	            </div>
+	        </div>
+	    </div>
+
+	    <!-- 2. 매출액 및 순이익 차트 -->
+	    <div class="chart-card">
+	        <div class="card-content">
+	            <div class="card-text">
+	                <p>매출액 및 순이익</p>
+	            </div>
+	            <div class="card-chart">
+	                <canvas id="salesNetProfitChart"></canvas>
+	            </div>
+	        </div>
+	    </div>
+
+	    <!-- 3. 운영비용 분포 차트 -->
+	    <div class="chart-card">
+	        <div class="card-content">
+	            <div class="card-text">
+	                <p>운영비용 분포</p>
+	            </div>
+	            <div class="card-chart">
+	                <canvas id="operatingCostChart"></canvas>
+	            </div>
+	        </div>
+	    </div>
+
+		<!-- 5. 부채 분석 차트 -->
+		<div class="chart-card">
+		    <div class="card-content">
+		        <div class="card-text">
+		            <p>부채 분석</p>
+		        </div>
+		        <div class="card-chart">
+		            <canvas id="liabilityChart"></canvas>
+		        </div>
+		    </div>
+		</div>		
+		
+		<!-- 4. 자본 및 부채 비율 차트 (파이 차트) -->
+		<div class="chart-card pie-chart-card">
+			<div class="card-content">
+				<div class="card-text">
+					<p>자산</p>
+				</div>
+				<div class="card-chart">
+					<canvas id="capitalLiabilityChart"></canvas>
+				</div>
+			</div>
+		</div>
+
+	    <!-- 6. 추가 예정 차트 -->
+	    <div class="chart-card">
+	        <div class="card-content">
+	            <div class="card-text">
+	                <p>추가 차트 제목</p>
+	            </div>
+	            <div class="card-chart">
+	                <canvas id="additionalChart"></canvas>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

@@ -1,8 +1,10 @@
 package com.erp.erpsystem.controller;
 
+import com.erp.erpsystem.response.AssetResponse;
 import com.erp.erpsystem.response.ChartsResponse;
 import com.erp.erpsystem.response.FinancialSummaryResponse;
 import com.erp.erpsystem.service.FinancialStatementService;
+import com.erp.erpsystem.service.ErpAssetService;
 import com.erp.erpsystem.service.ErpChartsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class RestApiController {
     
     @Autowired
     private ErpChartsService erpChartsService;
+    
+    @Autowired
+    private ErpAssetService erpAssetService;
 
     // 재무제표 API
     @GetMapping("/fs")
@@ -78,4 +83,12 @@ public class RestApiController {
         return chartsResponse;
     }
     
+    // 자산 API
+    @GetMapping("/Asset")
+    public AssetResponse getAssetData() {
+    	AssetResponse assetResponse = new AssetResponse();     	
+    	assetResponse.setAsset(erpAssetService.getAsset());
+    	
+    	return assetResponse;
+    }
 }

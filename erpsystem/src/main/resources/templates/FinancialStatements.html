@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>재무제표</title>
+	<link rel="stylesheet" th:href="@{/FinancialStatsments.css}">
+	<link rel="stylesheet" th:href="@{/navbar.css}">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+	<!-- 네비게이션 바 포함 -->
+	<div th:insert="navbar :: navbar"></div>
+
+	<!-- 재무제표 컨테이너 -->
+	<div class="statements-container">
+
+
+		<!-- 대차대조표 -->
+		<div class="statement-card">
+			<div class="card-content">
+				<div class="card-text">
+					<h2>대차대조표</h2>
+					<p>2023년 12월 31일</p>
+				</div>
+				<div class="card-table">
+					<!-- 대차대조표 표 -->
+					<table>
+						<thead>
+							<tr>
+								<th colspan="2">자산</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><strong>유동자산</strong></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>&nbsp;&nbsp;현금</td>
+								<td>5,000,000원</td>
+							</tr>
+							<tr>
+								<td>&nbsp;&nbsp;재고자산</td>
+								<td>15,000,000원</td>
+							</tr>
+							<tr>
+								<td><strong>합계 유동자산</strong></td>
+								<td><strong>20,000,000원</strong></td>
+							</tr>
+							<tr>
+								<td><strong>비유동자산</strong></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>&nbsp;&nbsp;토지</td>
+								<td>20,000,000원</td>
+							</tr>
+							<tr>
+								<td>&nbsp;&nbsp;건물</td>
+								<td>50,000,000원</td>
+							</tr>
+							<tr>
+								<td>&nbsp;&nbsp;감가상각 누계액</td>
+								<td>(5,000,000원)</td>
+							</tr>
+							<tr>
+								<td><strong>합계 비유동자산</strong></td>
+								<td><strong>65,000,000원</strong></td>
+							</tr>
+							<tr>
+								<th>총 자산</th>
+								<th>85,000,000원</th>
+							</tr>
+						</tbody>
+					</table>
+
+					<table>
+						<thead>
+							<tr>
+								<th colspan="2">부채 및 자본</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><strong>유동부채</strong></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>&nbsp;&nbsp;매입채무</td>
+								<td>8,000,000원</td>
+							</tr>
+							<tr>
+								<td>&nbsp;&nbsp;단기차입금</td>
+								<td>5,000,000원</td>
+							</tr>
+							<tr>
+								<td><strong>합계 유동부채</strong></td>
+								<td><strong>13,000,000원</strong></td>
+							</tr>
+							<tr>
+								<td><strong>비유동부채</strong></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>&nbsp;&nbsp;장기차입금</td>
+								<td>20,000,000원</td>
+							</tr>
+							<tr>
+								<td><strong>합계 비유동부채</strong></td>
+								<td><strong>20,000,000원</strong></td>
+							</tr>
+							<tr>
+								<td><strong>총 부채</strong></td>
+								<td><strong>33,000,000원</strong></td>
+							</tr>
+							<tr>
+								<td><strong>자본</strong></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>&nbsp;&nbsp;자본금</td>
+								<td>10,000,000원</td>
+							</tr>
+							<tr>
+								<td>&nbsp;&nbsp;이익잉여금</td>
+								<td>52,000,000원</td>
+							</tr>
+							<tr>
+								<td><strong>총 자본</strong></td>
+								<td><strong>62,000,000원</strong></td>
+							</tr>
+							<tr>
+								<th>총 부채 및 자본</th>
+								<th>95,000,000원</th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- 손익계산서 -->
+		<div class="statement-card">
+			<div class="card-content">
+				<div class="card-text">
+					<h2>손익계산서</h2>
+					<p>2023년 1월 1일 ~ 2023년 12월 31일</p>
+				</div>
+				<div class="card-table">
+					<!-- 손익계산서 표 -->
+					<table>
+						<thead>
+							<tr>
+								<th colspan="2">수익</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>매출액</td>
+								<td>50,000,000원</td>
+							</tr>
+							<tr>
+								<th colspan="2">비용</th>
+							</tr>
+							<tr>
+								<td>매출원가</td>
+								<td>30,000,000원</td>
+							</tr>
+							<tr>
+								<td>판매비 및 관리비</td>
+								<td>10,000,000원</td>
+							</tr>
+							<tr>
+								<td>감가상각비</td>
+								<td>5,000,000원</td>
+							</tr>
+							<tr>
+								<td>이자비용</td>
+								<td>1,000,000원</td>
+							</tr>
+							<tr>
+								<th>합계 비용</th>
+								<th>46,000,000원</th>
+							</tr>
+							<tr>
+								<th>순이익</th>
+								<th>4,000,000원</th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- 현금흐름표 -->
+		<div class="statement-card">
+			<div class="card-content">
+				<div class="card-text">
+					<h2>현금흐름표</h2>
+					<p>2023년 1월 1일 ~ 2023년 12월 31일</p>
+				</div>
+				<div class="card-table">
+					<!-- 현금흐름표 표 -->
+					<table>
+						<thead>
+							<tr>
+								<th colspan="2">영업활동으로 인한 현금흐름</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>순이익</td>
+								<td>4,000,000원</td>
+							</tr>
+							<tr>
+								<td>감가상각비</td>
+								<td>5,000,000원</td>
+							</tr>
+							<tr>
+								<td><strong>합계 영업활동 현금흐름</strong></td>
+								<td><strong>9,000,000원</strong></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<table>
+						<thead>
+							<tr>
+								<th colspan="2">투자활동으로 인한 현금흐름</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>건물 구입</td>
+								<td>(10,000,000원)</td>
+							</tr>
+							<tr>
+								<td><strong>합계 투자활동 현금흐름</strong></td>
+								<td><strong>(10,000,000원)</strong></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<table>
+						<thead>
+							<tr>
+								<th colspan="2">재무활동으로 인한 현금흐름</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>배당금 지급</td>
+								<td>(2,000,000원)</td>
+							</tr>
+							<tr>
+								<td>단기차입금 증가</td>
+								<td>3,000,000원</td>
+							</tr>
+							<tr>
+								<td><strong>합계 재무활동 현금흐름</strong></td>
+								<td><strong>1,000,000원</strong></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<table>
+						<tbody>
+							<tr>
+								<td><strong>순 현금흐름</strong></td>
+								<td><strong>(0원)</strong></td>
+							</tr>
+							<tr>
+								<td>기초 현금</td>
+								<td>6,000,000원</td>
+							</tr>
+							<tr>
+								<td><strong>기말 현금</strong></td>
+								<td><strong>6,000,000원</strong></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- 자본변동표 -->
+		<div class="statement-card">
+			<div class="card-content">
+				<div class="card-text">
+					<h2>자본변동표</h2>
+					<p>2023년 1월 1일 ~ 2023년 12월 31일</p>
+				</div>
+				<div class="card-table">
+					<!-- 자본변동표 표 -->
+					<table>
+						<thead>
+							<tr>
+								<th>항목</th>
+								<th>자본금</th>
+								<th>이익잉여금</th>
+								<th>총 자본</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>기초 잔액</td>
+								<td>10,000,000원</td>
+								<td>48,000,000원</td>
+								<td>58,000,000원</td>
+							</tr>
+							<tr>
+								<td>순이익</td>
+								<td></td>
+								<td>4,000,000원</td>
+								<td>4,000,000원</td>
+							</tr>
+							<tr>
+								<td>배당금 지급</td>
+								<td></td>
+								<td>(2,000,000원)</td>
+								<td>(2,000,000원)</td>
+							</tr>
+							<tr>
+								<td><strong>기말 잔액</strong></td>
+								<td><strong>10,000,000원</strong></td>
+								<td><strong>50,000,000원</strong></td>
+								<td><strong>60,000,000원</strong></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- 스크립트 파일 -->
+	<script src="/js/financialStatements.js"></script>
+</body>
+
+</html>

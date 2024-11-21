@@ -1,0 +1,99 @@
+/* 전체 페이지 스타일 */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+}
+
+/* 네비게이션 바 스타일 */
+/* 기존에 작성한 스타일을 그대로 사용합니다 */
+
+/* 재무제표 컨테이너 */
+.statements-container {
+    padding: 20px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+
+/* 재무제표 카드 스타일 */
+.statement-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 카드 내용물 */
+.card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-text {
+    padding: 10px;
+    background-color: #ecf0f1;
+    text-align: center;
+}
+
+.card-text h2 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.card-text p {
+    margin: 5px 0 0 0;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.card-table {
+    flex: 1;
+    padding: 10px;
+    overflow-x: auto;
+}
+
+/* 테이블 스타일 */
+.card-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.card-table th,
+.card-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.card-table th {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+.card-table td {
+    text-align: left;
+}
+
+.card-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.card-table strong {
+    font-weight: bold;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .statements-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
