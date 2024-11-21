@@ -13,4 +13,5 @@ public class ChartsResponse {
     private Map<String, List<Double>> financialRatios;
     private Map<String, Double> costSummary;
     private Map<String, Double> capitalLiabilityRatio;
+    private List<Double> liabilities;
 }
