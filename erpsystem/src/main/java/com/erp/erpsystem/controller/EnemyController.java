@@ -7,7 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class EnemyController {
 
     @GetMapping("/charts")
-    public String showAsdfPage() {
+    public String showChartsPage() {
         return "Charts";  // asdf.html을 반환
     }
+    
+    @GetMapping("/testc")
+    public String showTestPage() {
+        return "testCharts";  // asdf.html을 반환
+    }
+    
 }

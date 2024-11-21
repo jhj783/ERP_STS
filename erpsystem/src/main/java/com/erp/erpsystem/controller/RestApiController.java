@@ -78,13 +78,4 @@ public class RestApiController {
         return chartsResponse;
     }
     
-    // 테스트 차트
-    @GetMapping("/asdf")  // "/asdf" URL에 접근 시 asdf.html을 반환
-    public String showAsdfPage() {
-        return "asdf";  // templates 폴더에서 asdf.html을 반환
-    }
-    @GetMapping("/test") 
-    public String showTest() {
-        return "test";  // asdf.html을 반환합니다. (자동으로 templates 폴더에서 찾습니다.)
-    }
 }
