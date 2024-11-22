@@ -18,7 +18,6 @@ async function loadCharts() {
 		createOperatingCostChart(costSummary);
 		createCapitalLiabilityChart(capitalLiabilityRatio);
 		createLiabilityChart(liabilities);
-		createAdditionalChart(additionalData);
 	} catch (error) {
 		console.error('데이터 가져오기 오류:', error);
 	}
@@ -276,44 +275,5 @@ function createLiabilityChart(liabilities) {
 	};
 
 	const ctx = document.getElementById('liabilityChart').getContext('2d');
-	new Chart(ctx, config);
-}
-
-// 6. 추가 예정 차트 생성 함수
-function createAdditionalChart(additionalData) {
-	const labels = ['항목 1', '항목 2', '항목 3', '항목 4'];
-	const additionalChartData = additionalData.map(value => parseFloat(value.toFixed(2)));
-
-	const data = {
-		labels: labels,
-		datasets: [
-			{
-				label: '추가 차트 데이터',
-				data: additionalChartData,
-				borderColor: 'rgba(255, 159, 64, 1)',
-				backgroundColor: 'rgba(255, 159, 64, 0.2)',
-				fill: false,
-				tension: 0.1
-			},
-		]
-	};
-
-	const config = {
-		type: 'line',
-		data: data,
-		options: {
-			scales: {
-				y: {
-					beginAtZero: true,
-					title: {
-						display: true,
-						text: '값'
-					}
-				}
-			}
-		}
-	};
-
-	const ctx = document.getElementById('additionalChart').getContext('2d');
 	new Chart(ctx, config);
 }

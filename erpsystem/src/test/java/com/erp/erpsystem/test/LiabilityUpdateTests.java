@@ -1,17 +1,19 @@
 package com.erp.erpsystem.test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.erp.erpsystem.db.Liability;
-import com.erp.erpsystem.db.LiabilityRepository;
 import com.erp.erpsystem.db.AssetLiabilityLog;
 import com.erp.erpsystem.db.AssetLiabilityLogRepository;
-
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
+import com.erp.erpsystem.db.Liability;
+import com.erp.erpsystem.db.LiabilityRepository;
 
 // 241112 까지 이자 계산
 @SpringBootTest
@@ -33,25 +35,27 @@ public class LiabilityUpdateTests {
 
         for (Liability liability : liabilities) {
             // 이자를 계산해야 하는 필드들 가져오기
-            LocalDateTime startDate = liability.getDate();  // 부채 발생 날짜
-            double interestRate = liability.getInterestRate(); // 이자율 (예: 3.5%)
-            double originValue = liability.getOriginValue(); // 원래의 부채 금액
+            LocalDateTime startDate = liability.getDate(); // 부채 발생 날짜
+            BigDecimal interestRate = liability.getInterestRate(); // 이자율 (예: 3.5%)
+            BigDecimal originValue = liability.getOriginValue(); // 원래의 부채 금액
 
             // 날짜 차이 계산 (부채 발생 날짜부터 오늘까지의 개월 수)
             long monthsBetween = ChronoUnit.MONTHS.between(startDate, today);
 
             // 현재 value 설정 (초기값은 원래 부채 금액)
-            double updatedCurrentValue = originValue;
+            BigDecimal updatedCurrentValue = originValue;
 
             // 매달 발생하는 이자를 계산하고 로그 남기기
             for (int i = 0; i < monthsBetween; i++) {
                 LocalDateTime interestDate = startDate.plusMonths(i + 1); // 매월 발생 날짜 계산
 
                 // 이자 계산 (월별 이자)
-                double monthlyInterest = originValue * (interestRate / 100);
+                BigDecimal monthlyInterest = originValue
+                        .multiply(interestRate)
+                        .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
 
                 // current_value 업데이트 (원금 + 누적 이자)
-                updatedCurrentValue += monthlyInterest;
+                updatedCurrentValue = updatedCurrentValue.add(monthlyInterest);
 
                 // 로그 남기기 (매월 이자 발생 시 로그 생성)
                 AssetLiabilityLog log = new AssetLiabilityLog();

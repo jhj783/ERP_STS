@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     
     // 특정 TYPE과 날짜 범위의 AMOUNT 합계
     @Query("SELECT SUM(a.amount) FROM Account a WHERE a.type = :type AND a.date BETWEEN :startDate AND :endDate")
-    Double findTotalAmountByTypeAndDateRange(
+    BigDecimal findTotalAmountByTypeAndDateRange(
         @Param("type") String type,
         @Param("startDate") LocalDateTime startDate,
         @Param("endDate") LocalDateTime endDate
@@ -21,7 +22,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     // 특정 DESCRIPTION과 날짜 범위의 AMOUNT 합계
     @Query("SELECT SUM(a.amount) FROM Account a WHERE a.description = :description AND a.date BETWEEN :startDate AND :endDate")
-    Double findTotalAmountByDescriptionAndDateRange(
+    BigDecimal findTotalAmountByDescriptionAndDateRange(
         @Param("description") String description,
         @Param("startDate") LocalDateTime startDate,
         @Param("endDate") LocalDateTime endDate
@@ -29,7 +30,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     // 특정 조건의 DESCRIPTION들로 시작하거나 포함된 경우의 AMOUNT 합계
     @Query("SELECT SUM(a.amount) FROM Account a WHERE (a.description LIKE CONCAT(:descriptionPrefix, '%') OR a.description IN :descriptions) AND a.date BETWEEN :startDate AND :endDate")
-    Double findTotalAmountByDescriptionCriteria(
+    BigDecimal findTotalAmountByDescriptionCriteria(
         @Param("descriptionPrefix") String descriptionPrefix,
         @Param("descriptions") List<String> descriptions,
         @Param("startDate") LocalDateTime startDate,

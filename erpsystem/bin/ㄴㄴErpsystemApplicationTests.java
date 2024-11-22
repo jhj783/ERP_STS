@@ -19,7 +19,7 @@ class ㄴㄴErpsystemApplicationTests {
     void testJpa() {
         // 첫 번째 거래 데이터 저장
         Account c1 = new Account();
-        c1.setAmount(5000.0);
+        c1.setAmount(5000);
         c1.setDate(LocalDateTime.now());
         c1.setDescription("초기 입금");
         c1.setType("입금");

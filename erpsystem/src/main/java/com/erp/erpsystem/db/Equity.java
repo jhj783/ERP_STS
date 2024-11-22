@@ -1,5 +1,6 @@
 package com.erp.erpsystem.db;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
@@ -23,7 +24,7 @@ public class Equity {
     private String name; // 자본 이름
 
     @Column(nullable = false)
-    private Double amount; // 자본 금액
+    private BigDecimal amount; // 자본 금액
 
     @Column(length = 100)
     private String type; // 자본 유형 (예: 유상 자본, 기타 자본 등)

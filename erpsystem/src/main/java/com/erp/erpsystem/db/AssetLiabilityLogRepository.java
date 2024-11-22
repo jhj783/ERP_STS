@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,21 +12,21 @@ public interface AssetLiabilityLogRepository extends JpaRepository<AssetLiabilit
 
 	// 감가상각
     @Query("SELECT SUM(a.amount) FROM AssetLiabilityLog a WHERE a.description = :description AND a.date BETWEEN :startDate AND :endDate")
-    Double findNameAndAmountByDescriptionAndDateRange(
+    BigDecimal findNameAndAmountByDescriptionAndDateRange(
         @Param("description") String description,
         @Param("startDate") LocalDateTime startDate,
         @Param("endDate") LocalDateTime endDate
     );
     
     @Query("SELECT SUM(a.amount) FROM AssetLiabilityLog a WHERE a.description = :description AND a.date BETWEEN :startDate AND :endDate")
-    Double findTotalAmountByDescriptionAndDateRange(
+    BigDecimal findTotalAmountByDescriptionAndDateRange(
         @Param("description") String description,
         @Param("startDate") LocalDateTime startDate,
         @Param("endDate") LocalDateTime endDate
     );
     
     @Query("SELECT SUM(a.amount) FROM AssetLiabilityLog a WHERE a.name = :name AND a.date <= :endDate")
-    Double findTotalAmountByCashDateRange(
+    BigDecimal findTotalAmountByCashDateRange(
         @Param("name") String description, // name으로 바꿔야?
         @Param("endDate") LocalDateTime endDate
     );
@@ -40,25 +41,25 @@ public interface AssetLiabilityLogRepository extends JpaRepository<AssetLiabilit
 
     
     @Query("SELECT SUM(a.amount) FROM AssetLiabilityLog a WHERE a.description = :description AND a.date <= :endDate")
-    Double findTotalAmountByWriteDownDateRange(
+    BigDecimal findTotalAmountByWriteDownDateRange(
 		@Param("description") String description,
         @Param("endDate") LocalDateTime endDate
     );
     
     @Query("SELECT SUM(a.amount) FROM AssetLiabilityLog a WHERE a.name IN :shortTermDebtNames AND a.date <= :endDate")
-    Double findShortTermDebt(
+    BigDecimal findShortTermDebt(
         @Param("shortTermDebtNames") List<String> shortTermDebtNames,
         @Param("endDate") LocalDateTime endDate
     );
 
     @Query("SELECT SUM(a.amount) FROM AssetLiabilityLog a WHERE a.name IN :equityNames AND a.date <= :endDate")
-    Double findEquity(
+    BigDecimal findEquity(
         @Param("equityNames") List<String> equityNames,
         @Param("endDate") LocalDateTime endDate
     );
 
     @Query("SELECT SUM(a.amount) FROM AssetLiabilityLog a WHERE a.name NOT IN :exclusionNames AND a.description = 'new 자산' AND a.date BETWEEN :startDate AND :endDate")
-    Double findCashFlow(
+    BigDecimal findCashFlow(
         @Param("exclusionNames") List<String> exclusionNames,
         @Param("startDate") LocalDateTime startDate,
         @Param("endDate") LocalDateTime endDate
@@ -66,7 +67,7 @@ public interface AssetLiabilityLogRepository extends JpaRepository<AssetLiabilit
     
     
     @Query("SELECT SUM(a.amount) FROM AssetLiabilityLog a WHERE a.description = 'new 부채' AND a.date BETWEEN :startDate AND :endDate")
-    Double findCashFlowFinancial(
+    BigDecimal findCashFlowFinancial(
         @Param("startDate") LocalDateTime startDate,
         @Param("endDate") LocalDateTime endDate
     );

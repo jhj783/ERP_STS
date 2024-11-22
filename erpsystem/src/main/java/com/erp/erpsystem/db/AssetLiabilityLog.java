@@ -1,5 +1,6 @@
 package com.erp.erpsystem.db;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -23,7 +24,7 @@ public class AssetLiabilityLog {
     private String name; // 로그 이름 (자산/부채 항목 이름)
 
     @Column(nullable = false)
-    private Double amount; // 금액 변동
+    private BigDecimal amount; // 금액 변동
 
     @Column(length = 500)
     private String description; // 변동 내용

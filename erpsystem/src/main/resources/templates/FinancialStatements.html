@@ -38,15 +38,15 @@
 							</tr>
 							<tr>
 								<td>&nbsp;&nbsp;현금</td>
-								<td>fuck</td>
+								<td th:text="${financialData.formattedCash}"></td>
 							</tr>
 							<tr>
 								<td>&nbsp;&nbsp;재고자산</td>
-								<td>15,000,000원</td>
+								<td>아직</td>
 							</tr>
 							<tr>
 								<td><strong>합계 유동자산</strong></td>
-								<td><strong>20,000,000원</strong></td>
+								<td th:text="${financialData.formattedCurrentAssets}"><strong></strong></td>
 							</tr>
 							<tr>
 								<td><strong>비유동자산</strong></td>
@@ -54,11 +54,11 @@
 							</tr>
 							<tr>
 								<td>&nbsp;&nbsp;토지</td>
-								<td>20,000,000원</td>
+								<td>아직</td>
 							</tr>
 							<tr>
 								<td>&nbsp;&nbsp;건물</td>
-								<td>50,000,000원</td>
+								<td>아직</td>
 							</tr>
 							<tr>
 								<td>&nbsp;&nbsp;감가상각 누계액</td>
@@ -339,7 +339,7 @@
 
 
 	<!-- 스크립트 파일 -->
-	<script src="/js/financialStatements.js"></script>
+	<script src="/js/FinancialStatsments.js"></script>
 </body>
 
 </html>

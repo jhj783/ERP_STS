@@ -1,5 +1,6 @@
 package com.erp.erpsystem.db;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -20,7 +21,7 @@ public class Account {
     private Long id; // Id
 
     @Column(nullable = false)
-    private Double amount; // 거래 금액
+    private BigDecimal amount; // 거래 금액
 
     @Column(nullable = false)
     private LocalDateTime date; // 거래 날짜
@@ -32,5 +33,5 @@ public class Account {
     private String type; // 거래 유형
 
     @Column(nullable = false)
-    private Double afterBalance; // 거래 후 잔액
+    private BigDecimal afterBalance; // 거래 후 잔액
 }

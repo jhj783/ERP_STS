@@ -1,69 +1,66 @@
+// FinancialSummaryResponse.java
+
 package com.erp.erpsystem.response;
 
 import lombok.Builder;
 import lombok.Data;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
 @Builder
 public class FinancialSummaryResponse {
-    private double sales;
-    private double rawMaterials;
-    private double netProfit;
-    private double depreciation;
-    private double interest;
-    private double cash;
-    private double currentAssets;
-    private double totalNonCurrentAssets;
-    private double totalAssets;
-    private double shortTermDebt;
-    private double currentLiabilities;
-    private double longTermDebt;
-    private double nonCurrentLiabilities;
-    private double totalLiabilities;
-    private double equity;
-    private double retainedEarnings;
-    private double totalCapital;
-    private double totalLiabilityCapital;
-    private double cashFlowFromInvestmentActivities;
-    private double cashFlowFromFinancialActivities;
-    private double basicRetainedEarnings;
-    private double edRetainedEarnings;
-    private double allCapital;
-    
+    // 원래의 BigDecimal 타입 필드들
+    private BigDecimal sales;
+    private BigDecimal rawMaterials;
+    private BigDecimal netProfit;
+    private BigDecimal depreciation;
+    private BigDecimal interest;
+    private BigDecimal cash;
+    private BigDecimal currentAssets;
+    private BigDecimal totalNonCurrentAssets;
+    private BigDecimal totalAssets;
+    private BigDecimal shortTermDebt;
+    private BigDecimal currentLiabilities;
+    private BigDecimal longTermDebt;
+    private BigDecimal nonCurrentLiabilities;
+    private BigDecimal totalLiabilities;
+    private BigDecimal equity;
+    private BigDecimal retainedEarnings;
+    private BigDecimal totalCapital;
+    private BigDecimal totalLiabilityCapital;
+    private BigDecimal cashFlowFromInvestmentActivities;
+    private BigDecimal cashFlowFromFinancialActivities;
+    private BigDecimal basicRetainedEarnings;
+    private BigDecimal edRetainedEarnings;
+    private BigDecimal allCapital;
     private List<Object[]> assetLists;
-    
-    /*
-    @Override
-    public String toString() {
-        return "FinancialSummaryResponse{" +
-                "sales=" + sales +
-                ", rawMaterials=" + rawMaterials +
-                ", netProfit=" + netProfit +
-                ", depreciation=" + depreciation +
-                ", interest=" + interest +
-                ", cash=" + cash +
-                ", currentAssets=" + currentAssets +
-                ", totalNonCurrentAssets=" + totalNonCurrentAssets +
-                ", totalAssets=" + totalAssets +
-                ", shortTermDebt=" + shortTermDebt +
-                ", currentLiabilities=" + currentLiabilities +
-                ", longTermDebt=" + longTermDebt +
-                ", nonCurrentLiabilities=" + nonCurrentLiabilities +
-                ", totalLiabilities=" + totalLiabilities +
-                ", equity=" + equity +
-                ", retainedEarnings=" + retainedEarnings +
-                ", totalCapital=" + totalCapital +
-                ", totalLiabilityCapital=" + totalLiabilityCapital +
-                ", cashFlowFromInvestmentActivities=" + cashFlowFromInvestmentActivities +
-                ", cashFlowFromFinancialActivities=" + cashFlowFromFinancialActivities +
-                ", basicRetainedEarnings=" + basicRetainedEarnings +
-                ", edRetainedEarnings=" + edRetainedEarnings +
-                ", allCapital=" + allCapital +
-                ", assetLists=" + assetLists +
-                '}';
-    }
-    */
+
+    // 포맷팅된 문자열 필드들
+    private String formattedSales;
+    private String formattedRawMaterials;
+    private String formattedNetProfit;
+    private String formattedDepreciation;
+    private String formattedInterest;
+    private String formattedCash;
+    private String formattedCurrentAssets;
+    private String formattedTotalNonCurrentAssets;
+    private String formattedTotalAssets;
+    private String formattedShortTermDebt;
+    private String formattedCurrentLiabilities;
+    private String formattedLongTermDebt;
+    private String formattedNonCurrentLiabilities;
+    private String formattedTotalLiabilities;
+    private String formattedEquity;
+    private String formattedRetainedEarnings;
+    private String formattedTotalCapital;
+    private String formattedTotalLiabilityCapital;
+    private String formattedCashFlowFromInvestmentActivities;
+    private String formattedCashFlowFromFinancialActivities;
+    private String formattedBasicRetainedEarnings;
+    private String formattedEdRetainedEarnings;
+    private String formattedAllCapital;
+
+    // assetLists는 필요에 따라 포맷팅하거나 그대로 사용하시면 됩니다.
 }
-
-

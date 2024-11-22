@@ -1,5 +1,6 @@
 package com.erp.erpsystem.db;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -23,13 +24,13 @@ public class Asset {
     private String name; // 자산 이름
 
     @Column(nullable = false)
-    private Double amount; // 자산의 현재 가치
+    private BigDecimal amount; // 자산의 현재 가치
 
     @Column(length = 100)
     private String type; // 자산 유형 (유동/비유동 등)
 
     @Column(nullable = false)
-    private Double acquisitionCost; // 자산의 취득가액
+    private BigDecimal acquisitionCost; // 자산의 취득가액
     
     @Column(nullable = false)
     private LocalDateTime date; // 취득일
