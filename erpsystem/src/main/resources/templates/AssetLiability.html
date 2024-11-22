@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>자산 및 부채 현황</title>
+    <link rel="stylesheet" th:href="@{/css/AssetLiability.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <!-- 네비게이션 바 포함 -->
+    <div th:insert="navbar :: navbar"></div>
+
+    <!-- 컨테이너 -->
+    <div class="financial-statements-container">
+        <h1>자산 및 부채 현황</h1>
+
+        <!-- 자산 섹션 -->
+        <div class="statement-section">
+            <h2>자산 목록</h2>
+            <table id="assetTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>이름</th>
+                        <th>금액</th>
+                        <th>취득원가</th>
+                        <th>유형</th>
+                        <th>날짜</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 자산 데이터가 여기에 삽입됩니다 -->
+                </tbody>
+            </table>
+            <h3>자산 총액: <span id="totalAssetAmount">0원</span></h3>
+        </div>
+
+        <!-- 부채 섹션 -->
+        <div class="statement-section">
+            <h2>부채 목록</h2>
+            <table id="liabilityTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>이름</th>
+                        <th>현재 가치</th>
+                        <th>원금</th>
+                        <th>유형</th>
+                        <th>이자율</th>
+                        <th>이자 기간</th>
+                        <th>만기일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 부채 데이터가 여기에 삽입됩니다 -->
+                </tbody>
+            </table>
+            <h3>부채 총액: <span id="totalLiabilityAmount">0원</span></h3>
+        </div>
+    </div>
+
+    <!-- 스크립트 파일 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 자산 데이터 가져오기
+            fetch('/api/asset')
+                .then(response => response.json())
+                .then(data => {
+                    const assets = data.asset;
+                    const assetTableBody = document.querySelector('#assetTable tbody');
+                    let totalAssetAmount = 0;
+
+                    assets.forEach(asset => {
+                        const row = document.createElement('tr');
+
+                        row.innerHTML = `
+                            <td>${asset.id}</td>
+                            <td>${asset.name}</td>
+                            <td>${parseFloat(asset.amount).toLocaleString()}원</td>
+                            <td>${parseFloat(asset.acquisitionCost).toLocaleString()}원</td>
+                            <td>${asset.type}</td>
+                            <td>${asset.date}</td>
+                        `;
+
+                        assetTableBody.appendChild(row);
+
+                        totalAssetAmount += parseFloat(asset.amount);
+                    });
+
+                    document.getElementById('totalAssetAmount').innerText = totalAssetAmount.toLocaleString() + '원';
+                })
+                .catch(error => {
+                    console.error('자산 데이터 가져오기 오류:', error);
+                });
+
+            // 부채 데이터 가져오기
+            fetch('/api/liability')
+                .then(response => response.json())
+                .then(data => {
+                    const liabilities = data.liability;
+                    const liabilityTableBody = document.querySelector('#liabilityTable tbody');
+                    let totalLiabilityAmount = 0;
+
+                    liabilities.forEach(liability => {
+                        const row = document.createElement('tr');
+
+                        row.innerHTML = `
+                            <td>${liability.id}</td>
+                            <td>${liability.name}</td>
+                            <td>${parseFloat(liability.currentValue).toLocaleString()}원</td>
+                            <td>${parseFloat(liability.originValue).toLocaleString()}원</td>
+                            <td>${liability.type}</td>
+                            <td>${liability.interestRate}%</td>
+                            <td>${liability.interestPeriod}</td>
+                            <td>${liability.maturityDate}</td>
+                        `;
+
+                        liabilityTableBody.appendChild(row);
+
+                        totalLiabilityAmount += parseFloat(liability.currentValue);
+                    });
+
+                    document.getElementById('totalLiabilityAmount').innerText = totalLiabilityAmount.toLocaleString() + '원';
+                })
+                .catch(error => {
+                    console.error('부채 데이터 가져오기 오류:', error);
+                });
+        });
+    </script>
+</body>
+
+</html>

@@ -3,9 +3,11 @@ package com.erp.erpsystem.controller;
 import com.erp.erpsystem.response.AssetResponse;
 import com.erp.erpsystem.response.ChartsResponse;
 import com.erp.erpsystem.response.FinancialSummaryResponse;
+import com.erp.erpsystem.response.LiabilityResponse;
 import com.erp.erpsystem.service.FinancialStatementService;
 import com.erp.erpsystem.service.ErpAssetService;
 import com.erp.erpsystem.service.ErpChartsService;
+import com.erp.erpsystem.service.ErpLiabilityService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +30,11 @@ public class RestApiController {
     
     @Autowired
     private ErpAssetService erpAssetService;
+    
+    @Autowired
+    private ErpLiabilityService erpLiabilityService;
 
+    
     // 재무제표 API
     @GetMapping("/fs")
     public FinancialSummaryResponse getFinancialSummary(
@@ -65,6 +71,7 @@ public class RestApiController {
         return summary;
     }
     
+    
 	// 차트 API
     @GetMapping("/charts")
     public ChartsResponse getChartsData(
@@ -84,11 +91,21 @@ public class RestApiController {
     }
     
     // 자산 API
-    @GetMapping("/Asset")
+    @GetMapping("/asset")
     public AssetResponse getAssetData() {
     	AssetResponse assetResponse = new AssetResponse();     	
     	assetResponse.setAsset(erpAssetService.getAsset());
     	
     	return assetResponse;
     }
+    
+    // 부채 API
+    @GetMapping("/liability")
+    public LiabilityResponse getLiabilityData() {
+    	LiabilityResponse liabilityResponse = new LiabilityResponse();
+    	liabilityResponse.setLiability(erpLiabilityService.getLiability());
+    	
+    	return liabilityResponse;
+    }
+   
 }

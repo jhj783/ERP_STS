@@ -3,13 +3,40 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>자산</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" th:href="@{/style.css}">
-	<link rel="stylesheet" th:href="@{/navbar.css}">
+    <title>자산 목록</title>
+    <link rel="stylesheet" th:href="@{/css/AssetLiability.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
 </head>
 
 <body>
     <!-- 네비게이션 바 포함 -->
     <div th:insert="navbar :: navbar"></div>
+
+    <!-- 컨테이너 -->
+    <div class="financial-statements-container">
+        <h1>자산 목록</h1>
+
+        <div class="statement-section">
+            <table id="assetTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>이름</th>
+                        <th>금액</th>
+                        <th>취득원가</th>
+                        <th>유형</th>
+                        <th>날짜</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 자산 데이터가 동적으로 삽입됩니다 -->
+                </tbody>
+            </table>
+            <h3>자산 총액: <span id="totalAssetAmount">0원</span></h3>
+        </div>
+    </div>
+
+    <script src="js/Asset.js"></script>
 </body>
+
+</html>

@@ -3,13 +3,42 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>부채</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" th:href="@{/style.css}">
-    <link rel="stylesheet" th:href="@{/navbar.css}">
+    <title>부채 목록</title>
+    <link rel="stylesheet" th:href="@{/css/AssetLiability.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
 </head>
 
 <body>
     <!-- 네비게이션 바 포함 -->
     <div th:insert="navbar :: navbar"></div>
+
+    <!-- 컨테이너 -->
+    <div class="financial-statements-container">
+        <h1>부채 목록</h1>
+
+        <div class="statement-section">
+            <table id="liabilityTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>이름</th>
+                        <th>현재 가치</th>
+                        <th>원금</th>
+                        <th>유형</th>
+                        <th>이자율</th>
+                        <th>이자 기간</th>
+                        <th>만기일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 부채 데이터가 동적으로 삽입됩니다 -->
+                </tbody>
+            </table>
+            <h3>부채 총액: <span id="totalLiabilityAmount">0원</span></h3>
+        </div>
+    </div>
+
+    <script src="js/Liability.js"></script>
 </body>
+
+</html>

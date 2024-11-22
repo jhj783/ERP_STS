@@ -19,5 +19,7 @@ public interface LiabilityRepository extends JpaRepository<Liability, Long> {
 	List<String> findNameLongDebtNames(
 		@Param("futureDate") LocalDateTime futureDate
 	);
-
+	
+	@Query("SELECT a FROM Liability a") 
+    List<Liability> findLiabilityData();
 }

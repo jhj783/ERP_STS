@@ -45,4 +45,9 @@ public class EnemyController {
     public String showFinancialStatementsPage() {
         return "FinancialStatements"; // FinancialStatements.html 템플릿을 반환
     }
+    
+    @GetMapping("/al")
+    public String showAssetLiability() {
+    	return "AssetLiability";
+    }
 }
