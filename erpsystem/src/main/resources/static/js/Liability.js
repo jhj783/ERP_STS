@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
     // 부채 데이터 가져오기
-    fetch('/api/liability')
+    fetch('/api/rest/liability')
         .then(response => response.json())
         .then(data => {
-            const liabilities = data.liability;
             const liabilityTableBody = document.querySelector('#liabilityTable tbody');
             let totalLiabilityAmount = 0;
 
-            liabilities.forEach(liability => {
+            data.forEach(liability => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${liability.id}</td>

@@ -1,10 +1,11 @@
 package com.erp.erpsystem.response;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
+import java.util.List;
 
-@Getter
-@Setter
+@Data
+@Builder
 public class FinancialSummaryResponse {
     private double sales;
     private double rawMaterials;
@@ -29,4 +30,40 @@ public class FinancialSummaryResponse {
     private double basicRetainedEarnings;
     private double edRetainedEarnings;
     private double allCapital;
+    
+    private List<Object[]> assetLists;
+    
+    /*
+    @Override
+    public String toString() {
+        return "FinancialSummaryResponse{" +
+                "sales=" + sales +
+                ", rawMaterials=" + rawMaterials +
+                ", netProfit=" + netProfit +
+                ", depreciation=" + depreciation +
+                ", interest=" + interest +
+                ", cash=" + cash +
+                ", currentAssets=" + currentAssets +
+                ", totalNonCurrentAssets=" + totalNonCurrentAssets +
+                ", totalAssets=" + totalAssets +
+                ", shortTermDebt=" + shortTermDebt +
+                ", currentLiabilities=" + currentLiabilities +
+                ", longTermDebt=" + longTermDebt +
+                ", nonCurrentLiabilities=" + nonCurrentLiabilities +
+                ", totalLiabilities=" + totalLiabilities +
+                ", equity=" + equity +
+                ", retainedEarnings=" + retainedEarnings +
+                ", totalCapital=" + totalCapital +
+                ", totalLiabilityCapital=" + totalLiabilityCapital +
+                ", cashFlowFromInvestmentActivities=" + cashFlowFromInvestmentActivities +
+                ", cashFlowFromFinancialActivities=" + cashFlowFromFinancialActivities +
+                ", basicRetainedEarnings=" + basicRetainedEarnings +
+                ", edRetainedEarnings=" + edRetainedEarnings +
+                ", allCapital=" + allCapital +
+                ", assetLists=" + assetLists +
+                '}';
+    }
+    */
 }
+
+

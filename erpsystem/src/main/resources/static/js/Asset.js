@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
     // 자산 데이터 가져오기
-    fetch('/api/asset')
+    fetch('/api/rest/asset')
         .then(response => response.json())
         .then(data => {
-            const assets = data.asset;
             const assetTableBody = document.querySelector('#assetTable tbody');
             let totalAssetAmount = 0;
 
-            assets.forEach(asset => {
+            data.forEach(asset => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${asset.id}</td>

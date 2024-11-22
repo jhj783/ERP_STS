@@ -1,4 +1,4 @@
-package com.erp.erpsystem.response;
+package bin;
 
 import java.util.List;
 

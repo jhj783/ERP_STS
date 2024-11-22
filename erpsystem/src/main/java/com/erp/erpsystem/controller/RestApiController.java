@@ -1,13 +1,7 @@
 package com.erp.erpsystem.controller;
 
-import com.erp.erpsystem.response.AssetResponse;
 import com.erp.erpsystem.response.ChartsResponse;
-import com.erp.erpsystem.response.FinancialSummaryResponse;
-import com.erp.erpsystem.response.LiabilityResponse;
-import com.erp.erpsystem.service.FinancialStatementService;
-import com.erp.erpsystem.service.ErpAssetService;
 import com.erp.erpsystem.service.ErpChartsService;
-import com.erp.erpsystem.service.ErpLiabilityService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,19 +16,11 @@ import java.time.LocalDateTime;
 @RequestMapping("/api/")
 public class RestApiController {
 	
-    @Autowired
-    private FinancialStatementService financialStatementService;
     
     @Autowired
     private ErpChartsService erpChartsService;
-    
-    @Autowired
-    private ErpAssetService erpAssetService;
-    
-    @Autowired
-    private ErpLiabilityService erpLiabilityService;
 
-    
+    /*
     // 재무제표 API
     @GetMapping("/fs")
     public FinancialSummaryResponse getFinancialSummary(
@@ -70,7 +56,7 @@ public class RestApiController {
 
         return summary;
     }
-    
+    */
     
 	// 차트 API
     @GetMapping("/charts")
@@ -90,6 +76,7 @@ public class RestApiController {
         return chartsResponse;
     }
     
+    /*
     // 자산 API
     @GetMapping("/asset")
     public AssetResponse getAssetData() {
@@ -107,5 +94,5 @@ public class RestApiController {
     	
     	return liabilityResponse;
     }
-   
+   	*/
 }
