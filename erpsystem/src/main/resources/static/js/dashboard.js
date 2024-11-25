@@ -10,7 +10,7 @@ async function loadCharts() {
 		const costSummary = data.costSummary;
 		const capitalLiabilityRatio = data.capitalLiabilityRatio;
 		const liabilities = data.liabilities;
-		const additionalData = data.additionalData; // 추가 차트 데이터가 있다면
+		const assetRaitoData = data.assetRaitoData;
 
 		// 각 차트 생성 함수 호출
 		createFinancialRatioChart(financialRatios);
@@ -18,6 +18,7 @@ async function loadCharts() {
 		createOperatingCostChart(costSummary);
 		createCapitalLiabilityChart(capitalLiabilityRatio);
 		createLiabilityChart(liabilities);
+		createAssetRatioChart(assetRaitoData);
 	} catch (error) {
 		console.error('데이터 가져오기 오류:', error);
 	}
@@ -277,3 +278,60 @@ function createLiabilityChart(liabilities) {
 	const ctx = document.getElementById('liabilityChart').getContext('2d');
 	new Chart(ctx, config);
 }
+
+
+// 6. 자산 생성 함수
+function createAssetRatioChart(assetRaitoData) {
+    const labels = Object.keys(assetRaitoData); // 자산 이름들
+    const dataValues = Object.values(assetRaitoData).map(value => parseFloat(value.toFixed(2))); // 자산 값
+
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: '자산 분포',
+                data: dataValues,
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 99, 132, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }
+        ]
+    };
+
+    const config = {
+        type: 'doughnut',
+        data: data,
+        options: {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            const label = context.label || '';
+                            const value = context.raw.toLocaleString('ko-KR');
+                            const total = context.dataset.data.reduce((acc, val) => acc + val, 0);
+                            const percentage = ((context.raw / total) * 100).toFixed(2) + '%';
+                            return `${label}: ${value}원 (${percentage})`;
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    const ctx = document.getElementById('assetRatioChart').getContext('2d');
+    new Chart(ctx, config);
+}
+
+

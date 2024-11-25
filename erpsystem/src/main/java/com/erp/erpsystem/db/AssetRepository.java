@@ -11,4 +11,7 @@ public interface AssetRepository extends JpaRepository<Asset, Long> {
     
     @Query("SELECT a FROM Asset a") 
     List<Asset> findAssetData();
+    
+    @Query("SELECT a.name, a.amount FROM Asset a")
+    List<Object[]> findAssetRatioData();
 }

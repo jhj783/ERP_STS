@@ -131,3 +131,17 @@ html {
 .financial-statement strong {
     font-weight: bold;
 }
+
+
+/* 자본부채비율 자산분포 크기 맞추기*/
+.chart-card.same-size {
+    width: 400px; /* 원하는 동일한 너비 */
+    height: 400px; /* 원하는 동일한 높이 */
+    margin: auto;
+}
+.chart-card.same-size .card-chart canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+

@@ -1,4 +1,4 @@
-package com.erp.erpsystem.service;
+package com.erp.erpsystem.test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -13,14 +13,15 @@ import org.springframework.stereotype.Service;
 
 import com.erp.erpsystem.db.AccountRepository;
 import com.erp.erpsystem.db.AssetRepository;
+import com.erp.erpsystem.service.FinancialStatementService;
 //import com.google.gson.Gson;
+import com.erp.erpsystem.service.GetQuartersService;
 
-//import org.junit.jupiter.api.Test;
-//import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-//@SpringBootTest
-@Service
-public class ErpChartsService {
+@SpringBootTest
+public class ChartTest {
 	@Autowired
 	private AccountRepository AccountRepository;
 
@@ -143,18 +144,12 @@ public class ErpChartsService {
         return assetRatioData;
     }
 
-	/*
-	 * @Test void functionTest() { LocalDateTime[] previousQuarter =
-	 * getQuartersService.getPreviousQuartersDate(); System.out.println();
-	 * System.out.println(getCostSummary(previousQuarter[0], previousQuarter[1]));
-	 * System.out.println();
-	 * System.out.println(getCapitalLiabilityRatio(previousQuarter[0],
-	 * previousQuarter[1])); System.out.println();
-	 * System.out.println(getFinancialRatios(previousQuarter[0],
-	 * previousQuarter[1])); System.out.println();
-	 * System.out.println(getSalesAndNetProfit(previousQuarter[0],
-	 * previousQuarter[1])); System.out.println();
-	 * System.out.println(getLiabilities(previousQuarter[0], previousQuarter[1]));
-	 * System.out.println(); }
-	 */
+
+	  @Test
+	  void functionTest() {
+		  System.out.println();
+		  System.out.println(getAssetRatioData());
+		  System.out.println();
+	  }
+
 }

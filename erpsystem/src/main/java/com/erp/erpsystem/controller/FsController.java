@@ -2,9 +2,9 @@
 
 package com.erp.erpsystem.controller;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.text.DecimalFormat;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-// 필요한 import 추가
 import com.erp.erpsystem.response.FinancialSummaryResponse;
 import com.erp.erpsystem.service.FinancialStatementService;
 
@@ -34,63 +33,93 @@ public class FsController {
         // 각 필드의 값을 가져옵니다.
         BigDecimal sales = financialStatementService.getSales(startDate, endDate);
         BigDecimal rawMaterials = financialStatementService.getRawMaterials(startDate, endDate);
-        BigDecimal netProfit = financialStatementService.getNetProfit(startDate, endDate);
-        BigDecimal depreciation = financialStatementService.getDepreciation(startDate, endDate);
+        BigDecimal cost = financialStatementService.getCost(startDate, endDate); // 판매비 및 관리비
+        BigDecimal depreciation = financialStatementService.getDepreciation(startDate, endDate); // 감가상각 누계액
         BigDecimal interest = financialStatementService.getInterest(startDate, endDate);
+        BigDecimal totalCost = financialStatementService.getTotalCost(startDate, endDate);
+        BigDecimal netProfit = financialStatementService.getNetProfit(startDate, endDate);
+
         BigDecimal cash = financialStatementService.getCash(endDate);
         BigDecimal currentAssets = financialStatementService.getCurrentAssets(endDate);
         BigDecimal totalNonCurrentAssets = financialStatementService.getTotalNonCurrentAssets(endDate);
         BigDecimal totalAssets = financialStatementService.getTotalAssets(endDate);
+
         BigDecimal shortTermDebt = financialStatementService.getShortTermDebt(endDate);
         BigDecimal currentLiabilities = financialStatementService.getCurrentLiabilities(endDate);
         BigDecimal longTermDebt = financialStatementService.getLongTermDebt(endDate);
         BigDecimal nonCurrentLiabilities = financialStatementService.getNonCurrentLiabilities(endDate);
         BigDecimal totalLiabilities = financialStatementService.getTotalLiabilities(endDate);
+
         BigDecimal equity = financialStatementService.getEquity(endDate);
         BigDecimal retainedEarnings = financialStatementService.getRetainedEarnings(endDate);
         BigDecimal totalCapital = financialStatementService.getTotalCapital(endDate);
         BigDecimal totalLiabilityCapital = financialStatementService.getTotalLiabilityCapital(endDate);
-        BigDecimal cashFlowFromInvestmentActivities = financialStatementService.getCashFlowFromInvestmentActivities(startDate, endDate);
+
+        //BigDecimal cashFlowFromInvestmentActivities = financialStatementService.getCashFlowFromInvestmentActivities(startDate, endDate);
         BigDecimal cashFlowFromFinancialActivities = financialStatementService.getCashFlowFromFinancialActivities(startDate, endDate);
+
         BigDecimal basicRetainedEarnings = financialStatementService.getBasicRetainedEarnings(startDate, endDate);
         BigDecimal edRetainedEarnings = financialStatementService.getEdRetainedEarnings(endDate);
-        BigDecimal allCapital = financialStatementService.getAllCapital(startDate, endDate);
+        BigDecimal allCapital = financialStatementService.getAllCapital(endDate);
+
+        BigDecimal writeDown = financialStatementService.getWriteDown(endDate);
+        BigDecimal totalSalesActivityFlow = financialStatementService.getTotalSalesActivityFlow(startDate, endDate);
+        BigDecimal totalInvestmentActivityCashFlow = financialStatementService.getTotalInvestmentActivityCashFlow(startDate, endDate);
         List<Object[]> assetLists = financialStatementService.getAssetLists(endDate);
+        List<Object[]> cashFlowFromInvestmentActivities = financialStatementService.getCashFlowFromInvestmentActivities(startDate, endDate);
+        
+        BigDecimal basicEquity = financialStatementService.getBasicEquity(startDate);
+        BigDecimal basicCapital = financialStatementService.getBasicCapital(startDate);
 
         // 포맷팅된 문자열 생성
         String formattedSales = formatCurrency(sales, decimalFormatter);
         String formattedRawMaterials = formatCurrency(rawMaterials, decimalFormatter);
-        String formattedNetProfit = formatCurrency(netProfit, decimalFormatter);
-        String formattedDepreciation = formatCurrency(depreciation, decimalFormatter);
+        String formattedCost = formatCurrency(cost, decimalFormatter); // 포맷팅된 판매비 및 관리비
+        String formattedDepreciation = formatCurrency(depreciation, decimalFormatter); // 포맷팅된 감가상각 누계액
         String formattedInterest = formatCurrency(interest, decimalFormatter);
+        String formattedTotalCost = formatCurrency(totalCost, decimalFormatter);
+        String formattedNetProfit = formatCurrency(netProfit, decimalFormatter);
+
         String formattedCash = formatCurrency(cash, decimalFormatter);
         String formattedCurrentAssets = formatCurrency(currentAssets, decimalFormatter);
         String formattedTotalNonCurrentAssets = formatCurrency(totalNonCurrentAssets, decimalFormatter);
         String formattedTotalAssets = formatCurrency(totalAssets, decimalFormatter);
+
         String formattedShortTermDebt = formatCurrency(shortTermDebt, decimalFormatter);
         String formattedCurrentLiabilities = formatCurrency(currentLiabilities, decimalFormatter);
         String formattedLongTermDebt = formatCurrency(longTermDebt, decimalFormatter);
         String formattedNonCurrentLiabilities = formatCurrency(nonCurrentLiabilities, decimalFormatter);
         String formattedTotalLiabilities = formatCurrency(totalLiabilities, decimalFormatter);
+
         String formattedEquity = formatCurrency(equity, decimalFormatter);
         String formattedRetainedEarnings = formatCurrency(retainedEarnings, decimalFormatter);
         String formattedTotalCapital = formatCurrency(totalCapital, decimalFormatter);
         String formattedTotalLiabilityCapital = formatCurrency(totalLiabilityCapital, decimalFormatter);
-        String formattedCashFlowFromInvestmentActivities = formatCurrency(cashFlowFromInvestmentActivities, decimalFormatter);
+
+        //String formattedCashFlowFromInvestmentActivities = formatCurrency(cashFlowFromInvestmentActivities, decimalFormatter);
         String formattedCashFlowFromFinancialActivities = formatCurrency(cashFlowFromFinancialActivities, decimalFormatter);
+
         String formattedBasicRetainedEarnings = formatCurrency(basicRetainedEarnings, decimalFormatter);
         String formattedEdRetainedEarnings = formatCurrency(edRetainedEarnings, decimalFormatter);
         String formattedAllCapital = formatCurrency(allCapital, decimalFormatter);
-        // assetLists는 필요에 따라 처리
+
+        String formattedWriteDown = formatCurrency(writeDown, decimalFormatter);
+        String formattedTotalSalesActivityFlow = formatCurrency(totalSalesActivityFlow, decimalFormatter);
+        String formattedTotalInvestmentActivityCashFlow = formatCurrency(totalInvestmentActivityCashFlow, decimalFormatter);
+        
+        String formattedBasicEquity = formatCurrency(basicEquity, decimalFormatter);
+        String formattedBasicCapital = formatCurrency(basicCapital, decimalFormatter);
 
         // DTO 생성 및 데이터 설정
         FinancialSummaryResponse response = FinancialSummaryResponse.builder()
                 // 원래의 BigDecimal 값 설정
                 .sales(sales)
                 .rawMaterials(rawMaterials)
-                .netProfit(netProfit)
-                .depreciation(depreciation)
+                .cost(cost) // 판매비 및 관리비 추가
+                .depreciation(depreciation) // 감가상각 누계액 추가
                 .interest(interest)
+                .totalCost(totalCost)
+                .netProfit(netProfit)
                 .cash(cash)
                 .currentAssets(currentAssets)
                 .totalNonCurrentAssets(totalNonCurrentAssets)
@@ -109,13 +138,20 @@ public class FsController {
                 .basicRetainedEarnings(basicRetainedEarnings)
                 .edRetainedEarnings(edRetainedEarnings)
                 .allCapital(allCapital)
+                .writeDown(writeDown)
                 .assetLists(assetLists)
+                .totalSalesActivityFlow(totalSalesActivityFlow)
+                .totalInvestmentActivityCashFlow(totalInvestmentActivityCashFlow)
+                .basicEquity(basicEquity)
+                .basicCapital(basicCapital)
                 // 포맷팅된 문자열 설정
                 .formattedSales(formattedSales)
                 .formattedRawMaterials(formattedRawMaterials)
-                .formattedNetProfit(formattedNetProfit)
-                .formattedDepreciation(formattedDepreciation)
+                .formattedCost(formattedCost) // 포맷팅된 판매비 및 관리비 추가
+                .formattedDepreciation(formattedDepreciation) // 포맷팅된 감가상각 누계액 추가
                 .formattedInterest(formattedInterest)
+                .formattedTotalCost(formattedTotalCost)
+                .formattedNetProfit(formattedNetProfit)
                 .formattedCash(formattedCash)
                 .formattedCurrentAssets(formattedCurrentAssets)
                 .formattedTotalNonCurrentAssets(formattedTotalNonCurrentAssets)
@@ -129,11 +165,16 @@ public class FsController {
                 .formattedRetainedEarnings(formattedRetainedEarnings)
                 .formattedTotalCapital(formattedTotalCapital)
                 .formattedTotalLiabilityCapital(formattedTotalLiabilityCapital)
-                .formattedCashFlowFromInvestmentActivities(formattedCashFlowFromInvestmentActivities)
+                //.formattedCashFlowFromInvestmentActivities(formattedCashFlowFromInvestmentActivities)
                 .formattedCashFlowFromFinancialActivities(formattedCashFlowFromFinancialActivities)
                 .formattedBasicRetainedEarnings(formattedBasicRetainedEarnings)
                 .formattedEdRetainedEarnings(formattedEdRetainedEarnings)
                 .formattedAllCapital(formattedAllCapital)
+                .formattedWriteDown(formattedWriteDown)
+                .formattedTotalSalesActivityFlow(formattedTotalSalesActivityFlow)
+                .formattedTotalInvestmentActivityCashFlow(formattedTotalInvestmentActivityCashFlow)
+                .formattedBasicEquity(formattedBasicEquity)
+                .formattedBasicCapital(formattedBasicCapital)
                 .build();
 
         // 모델에 DTO 추가

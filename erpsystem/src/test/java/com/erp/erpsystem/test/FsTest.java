@@ -1,12 +1,12 @@
-package com.erp.erpsystem.service;
+package com.erp.erpsystem.test;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
-//import org.junit.jupiter.api.Test;
-//import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +14,11 @@ import org.springframework.stereotype.Service;
 import com.erp.erpsystem.db.AccountRepository;
 import com.erp.erpsystem.db.AssetLiabilityLogRepository;
 import com.erp.erpsystem.db.LiabilityRepository;
+import com.erp.erpsystem.service.GetQuartersService;
 
-//@SpringBootTest
-@Service
-public class FinancialStatementService {
+@SpringBootTest
+
+public class FsTest {
 
 	@Autowired
 	private AccountRepository accountRepository;
@@ -28,9 +29,9 @@ public class FinancialStatementService {
 	@Autowired
 	private LiabilityRepository liabilityRepository;
 
-	/*
-	 * @Autowired private GetQuartersService getQuartersService;
-	 */
+	
+	 @Autowired private GetQuartersService getQuartersService;
+	 
 
 	// 손익계산서.수익.매출액 //
 	public BigDecimal getSales(LocalDateTime sDate, LocalDateTime eDate) {
@@ -100,7 +101,7 @@ public class FinancialStatementService {
 	// 현금흐름표.영업활동으로 인한 현금흐름.순이익 //
 	// 자본변동표.이익잉여금.순이익 //
 	public BigDecimal getNetProfit(LocalDateTime sDate, LocalDateTime eDate) {
-		return getSales(sDate, eDate).add(getTotalCost(sDate, eDate));
+		return getSales(sDate, eDate).subtract(getTotalCost(sDate, eDate));
 	}
 
 	// 대차 대조표.자산.유동자산.현금 //
@@ -229,18 +230,6 @@ public class FinancialStatementService {
 		
 		return cashFlowFromInvestmentActivities ;
 	}
-	
-	// 현금흐름표.투자활동으로 인한 현금흐름.합계 투자활동 현금흐름 //
-	public BigDecimal getTotalInvestmentActivityCashFlow(LocalDateTime sDate, LocalDateTime eDate) {
-		List<Object[]> cashFlowFromInvestmentActivities = getCashFlowFromInvestmentActivities(sDate, eDate);
-		BigDecimal TotalCashFlow = BigDecimal.ZERO;
-		
-		for(Object[] cashFlow : cashFlowFromInvestmentActivities) {
-			TotalCashFlow = TotalCashFlow.add((BigDecimal) cashFlow[1]);
-		}
-		
-		return TotalCashFlow;
-	}
 
 	// 현금흐름표.재무활동으로 인한 현금흐름 //
 	public BigDecimal getCashFlowFromFinancialActivities(LocalDateTime sDate, LocalDateTime eDate) {
@@ -258,69 +247,31 @@ public class FinancialStatementService {
 	public BigDecimal getEdRetainedEarnings(LocalDateTime eDate) {
 		return getRetainedEarnings(eDate); // -배당금 추가필요
 	}
-	
+
 	// 자본변동표.총 자본 //
-	public BigDecimal getAllCapital(LocalDateTime eDate) {
+	public BigDecimal getAllCapital(LocalDateTime sDate, LocalDateTime eDate) {
 		return getEquity(eDate).add(getEdRetainedEarnings(eDate));
 	}
+
 	
-	// 자본변동표.기초 자본금 //
-	public BigDecimal getBasicEquity(LocalDateTime sDate) {
-		return getEquity(sDate);
-	}	
-	
-	// 자본변동표.기초 총 자본 //
-	public BigDecimal getBasicCapital(LocalDateTime sDate) {
-		return getAllCapital(sDate);
+	@Test
+	void functionTest() {
+	    LocalDateTime[] previousQuarter = getQuartersService.getPreviousQuartersDate();
+	    LocalDateTime startDate = LocalDateTime.of(2023, 1, 1, 0, 0);
+	    LocalDateTime endDate = previousQuarter[1];
+
+	    // 데이터 가져오기
+	    List<Object[]> cashFlowData = getCashFlowFromInvestmentActivities(startDate, endDate);
+
+	    System.out.println("Retrieved Cash Flow Data:");
+	    for (Object data : cashFlowData) {
+	        if (data instanceof Object[]) {
+	            Object[] row = (Object[]) data;
+	            System.out.println("Name: " + row[0] + ", Amount: " + row[1]);
+	        } else {
+	            System.out.println("Unexpected format: " + data);
+	        }
+	    }
 	}
 
-	/*
-	 * @Test void functionTest() { LocalDateTime[] previousQuarter =
-	 * getQuartersService.getPreviousQuartersDate(); LocalDateTime startDate =
-	 * previousQuarter[0]; LocalDateTime endDate = previousQuarter[1];
-	 * 
-	 * System.out.println(); System.out.println("매출액: "+getSales(startDate,
-	 * endDate)); System.out.println();
-	 * System.out.println("원가: "+getRawMaterials(startDate,endDate));System.out.
-	 * println();
-	 * System.out.println("비용: "+getCost(startDate,endDate));System.out.println();
-	 * System.out.println("감가상각: "+getDepreciation(startDate,endDate));System.out.
-	 * println();
-	 * System.out.println("이자비용: "+getInterest(startDate,endDate));System.out.
-	 * println();
-	 * System.out.println("합계비용: "+getTotalCost(startDate,endDate));System.out.
-	 * println();
-	 * System.out.println("순이익: "+getNetProfit(startDate,endDate));System.out.
-	 * println(); System.out.println("현금: "+getCash(endDate));System.out.println();
-	 * System.out.println("합계유동자산: "+getCurrentAssets(endDate));System.out.println()
-	 * ;
-	 * System.out.println("비유동자산목록List: "+getAssetLists(endDate));System.out.println
-	 * ();
-	 * System.out.println("감가상각누계: "+getWriteDown(endDate));System.out.println();
-	 * System.out.println("합계비유동자산: "+getTotalNonCurrentAssets(endDate));System.out.
-	 * println();
-	 * System.out.println("총자산: "+getTotalAssets(endDate));System.out.println();
-	 * System.out.println("단기차입금: "+getShortTermDebt(endDate));System.out.println();
-	 * System.out.println("합계유동부채: "+getCurrentLiabilities(endDate));System.out.
-	 * println();
-	 * System.out.println("장기차입금: "+getLongTermDebt(endDate));System.out.println();
-	 * System.out.println("합계비유동부채: "+getNonCurrentLiabilities(endDate));System.out.
-	 * println();
-	 * System.out.println("총부채: "+getTotalLiabilities(endDate));System.out.println()
-	 * ; System.out.println("자본금: "+getEquity(endDate));System.out.println();
-	 * System.out.println("이익잉여금: "+getRetainedEarnings(endDate));System.out.println
-	 * ();
-	 * System.out.println("총자본: "+getTotalCapital(endDate));System.out.println();
-	 * System.out.println("총부채및자본: "+getTotalLiabilityCapital(endDate));System.out.
-	 * println();
-	 * System.out.println("투자활동: "+getCashFlowFromInvestmentActivities(startDate,
-	 * endDate));System.out.println();
-	 * System.out.println("재무활동: "+getCashFlowFromFinancialActivities(startDate,
-	 * endDate));System.out.println();
-	 * System.out.println("기초이익잉여금: "+getBasicRetainedEarnings(startDate,
-	 * endDate));System.out.println();
-	 * System.out.println("기말이익잉여금: "+getEdRetainedEarnings(endDate));System.out.
-	 * println(); System.out.println("총자본: "+getAllCapital(startDate,
-	 * endDate));System.out.println(); }
-	 */
 }

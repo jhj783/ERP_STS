@@ -58,8 +58,8 @@ public interface AssetLiabilityLogRepository extends JpaRepository<AssetLiabilit
         @Param("endDate") LocalDateTime endDate
     );
 
-    @Query("SELECT SUM(a.amount) FROM AssetLiabilityLog a WHERE a.name NOT IN :exclusionNames AND a.description = 'new 자산' AND a.date BETWEEN :startDate AND :endDate")
-    BigDecimal findCashFlow(
+    @Query("SELECT a.name, a.amount FROM AssetLiabilityLog a WHERE a.name NOT IN :exclusionNames AND a.description = 'new 자산' AND a.date BETWEEN :startDate AND :endDate")
+    List<Object[]> findCashFlow(
         @Param("exclusionNames") List<String> exclusionNames,
         @Param("startDate") LocalDateTime startDate,
         @Param("endDate") LocalDateTime endDate
