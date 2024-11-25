@@ -8,13 +8,13 @@ html {
     background-color: #f0f2f5;
 }
 
-/* 하단 컨테이너: 차트 영역 */
+/* 차트 컨테이너 */
 .charts-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
     padding: 20px;
     box-sizing: border-box;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 20px;
 }
 
 /* 기본 차트 카드 스타일 */
@@ -27,7 +27,7 @@ html {
     flex-direction: column;
 }
 
-/* 카드 내용물을 상하로 나누기 */
+/* 카드 내용 스타일 */
 .card-content {
     display: flex;
     flex-direction: column;
@@ -55,36 +55,90 @@ html {
 .card-chart canvas {
     width: 100% !important;
     height: auto !important;
-    max-height: none;
 }
 
-/* 파이 차트 카드에만 적용되는 스타일 */
-.pie-chart-card {
-    height: 350px;
+/* 자산 & 자산 분포 컨테이너 */
+.vertical-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    grid-row: span 2;
 }
 
-.pie-chart-card .card-chart canvas {
-    height: 100% !important;
-    max-height: 300px;
+/* 작은 차트 크기 */
+.small-card {
+    height: 45%; /* 차트 높이 조정 */
+}
+
+
+/* 차트 캔버스 스타일 */
+.card-chart canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* 큰 차트를 위한 스타일 */
+.large-card {
+    grid-row: span 2; /* 세로로 2칸 차지 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* 반응형 디자인 */
 @media (max-width: 1200px) {
     .charts-container {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr); /* 2열 구성 */
     }
 }
 
 @media (max-width: 768px) {
     .charts-container {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr; /* 1열 구성 */
     }
 }
 
-@media (max-width: 480px) {
-    .charts-container {
-        grid-template-columns: 1fr;
+/* 자산 & 자산 분포 차트 크기 조정 */
+.chart-card.asset-chart {
+    height: 200px; /* 차트 높이 조정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.chart-card.asset-distribution {
+    height: 200px; /* 자산 분포 차트 높이 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 추가 차트 스타일 */
+.chart-card.extra-chart {
+    grid-column: span 2; /* 가로로 2칸 차지 */
+    height: 400px; /* 차트 높이 */
+}
+
+/* 반응형 추가 */
+@media (max-width: 768px) {
+    .chart-card.extra-chart {
+        grid-column: span 1; /* 모바일에서는 가로로 1칸 */
     }
+}
+
+/* 기본 차트 카드 스타일 */
+.chart-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 큰 차트를 위한 스타일 */
+.large-card {
+    grid-row: span 2; /* 세로로 2칸 차지 */
 }
 
 /* 재무제표 스타일 */
@@ -133,15 +187,33 @@ html {
 }
 
 
-/* 자본부채비율 자산분포 크기 맞추기*/
-.chart-card.same-size {
-    width: 400px; /* 원하는 동일한 너비 */
-    height: 400px; /* 원하는 동일한 높이 */
-    margin: auto;
-}
-.chart-card.same-size .card-chart canvas {
-    width: 100% !important;
-    height: 100% !important;
+
+
+/* 차트 카드 스타일 */
+.chart-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
+.card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-chart {
+    flex: 1;
+    padding: 10px;
+    max-height: 400px; /* 최대 높이 제한 */
+    height: auto;
+}
+
+.card-chart canvas {
+    width: 100% !important;
+    height: auto !important;
+}
 

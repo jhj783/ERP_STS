@@ -16,4 +16,5 @@ public class ChartsResponse {
 	private Map<String, BigDecimal> capitalLiabilityRatio;
 	private List<BigDecimal> liabilities;
 	private Map<String, BigDecimal> assetRaitoData;
+	private Map<String, Integer> stockData;
 }

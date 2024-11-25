@@ -73,6 +73,7 @@ public class RestApiController {
         chartsResponse.setCapitalLiabilityRatio(erpChartsService.getCapitalLiabilityRatio(sDate, eDate));
         chartsResponse.setLiabilities(erpChartsService.getLiabilities(sDate, eDate));
         chartsResponse.setAssetRaitoData(erpChartsService.getAssetRatioData());
+        chartsResponse.setStockData(erpChartsService.getStockData());
 
         return chartsResponse;
     }

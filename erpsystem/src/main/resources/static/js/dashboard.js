@@ -11,14 +11,16 @@ async function loadCharts() {
 		const capitalLiabilityRatio = data.capitalLiabilityRatio;
 		const liabilities = data.liabilities;
 		const assetRaitoData = data.assetRaitoData;
+		const stockData = data.stockData;
 
 		// 각 차트 생성 함수 호출
 		createFinancialRatioChart(financialRatios);
 		createSalesNetProfitChart(salesAndNetProfit);
 		createOperatingCostChart(costSummary);
-		createCapitalLiabilityChart(capitalLiabilityRatio);
 		createLiabilityChart(liabilities);
+		createCapitalLiabilityChart(capitalLiabilityRatio);
 		createAssetRatioChart(assetRaitoData);
+		createStockChart(stockData);
 	} catch (error) {
 		console.error('데이터 가져오기 오류:', error);
 	}
@@ -334,4 +336,69 @@ function createAssetRatioChart(assetRaitoData) {
     new Chart(ctx, config);
 }
 
+
+// 재고 현황 막대 그래프 생성 함수
+function createStockChart(stockData) {
+    const sortedStocks = Object.entries(stockData)
+        .map(([name, quantity]) => ({ name, quantity }))
+        .sort((a, b) => b.quantity - a.quantity); // 수량 기준 내림차순 정렬
+
+    const labels = sortedStocks.map(stock => stock.name); // 재고 이름
+    const quantities = sortedStocks.map(stock => stock.quantity); // 수량
+
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: '재고 수량',
+                data: quantities,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }
+        ]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            indexAxis: 'y', // 가로로 뻗는 막대그래프
+            maintainAspectRatio: true, // 세로 길이 늘어나는 문제 해결
+            responsive: true,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: '수량 (개)'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: '재고 품목'
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            const label = context.label || '';
+                            const value = context.raw.toLocaleString('ko-KR'); // 수량 포맷팅
+                            return `${label}: ${value} 개`;
+                        }
+                    }
+                },
+                legend: {
+                    display: false // 범례 숨기기
+                }
+            }
+        }
+    };
+
+    const ctx = document.getElementById('stockChart').getContext('2d');
+    new Chart(ctx, config);
+}
 

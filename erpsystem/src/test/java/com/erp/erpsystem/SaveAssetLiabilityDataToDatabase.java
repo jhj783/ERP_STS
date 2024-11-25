@@ -13,6 +13,8 @@ import com.erp.erpsystem.db.Asset;
 import com.erp.erpsystem.db.AssetRepository;
 import com.erp.erpsystem.db.Liability;
 import com.erp.erpsystem.db.LiabilityRepository;
+import com.erp.erpsystem.db.Stock;
+import com.erp.erpsystem.db.StockRepository;
 import com.erp.erpsystem.db.AssetLiabilityLog;
 import com.erp.erpsystem.db.AssetLiabilityLogRepository;
 
@@ -27,6 +29,9 @@ class SaveAssetLiabilityDataToDatabase {
 
     @Autowired
     private AssetLiabilityLogRepository assetLiabilityLogRepository;
+    
+    @Autowired
+    private StockRepository stockRepository;
 
     @Test
     void testJpa() {
@@ -87,7 +92,33 @@ class SaveAssetLiabilityDataToDatabase {
         for (AssetLiabilityLog asset_liability_log : assets_Liabilities_log) {
             this.assetLiabilityLogRepository.save(asset_liability_log);
         }
+        
+        // 재고 내용
+        List<Stock> stocks = new ArrayList<>();
+        
+        stocks.add(createStock("M5A3", BigDecimal.valueOf(1150450), 2150, "AR", 8));
+        stocks.add(createStock("AM40", BigDecimal.valueOf(930540), 511, "AR", 4));
+        stocks.add(createStock("AK-24", BigDecimal.valueOf(731180), 923, "AR", 3));
+        stocks.add(createStock("SFAR-M GL", BigDecimal.valueOf(1873910), 130, "AR", 3));
+        stocks.add(createStock("AC-42", BigDecimal.valueOf(914990), 328, "AR", 4));
+        stocks.add(createStock("RM-68", BigDecimal.valueOf(1130400), 1221, "AR", 6));
+        stocks.add(createStock("GEW-46", BigDecimal.valueOf(1199990), 922, "AR", 5));
+        stocks.add(createStock("VHX-D3", BigDecimal.valueOf(1130200), 882, "AR", 7));
+        stocks.add(createStock("AK 5C", BigDecimal.valueOf(924000), 762, "AR", 7));
+        stocks.add(createStock("M16A3", BigDecimal.valueOf(790340), 1541, "AR", 5));
+        stocks.add(createStock("ACW-R", BigDecimal.valueOf(849420), 599, "AR", 5));
+        stocks.add(createStock("A-91", BigDecimal.valueOf(640000), 396, "AR", 5));
+        stocks.add(createStock("M416", BigDecimal.valueOf(894300), 1277, "AR", 4));
+        stocks.add(createStock("MTAR-21", BigDecimal.valueOf(880200), 641, "AR", 7));
+        stocks.add(createStock("AEK-971", BigDecimal.valueOf(715000), 971, "AR", 6));
+        
+        for(Stock stock : stocks) {
+        	this.stockRepository.save(stock);
+        }
+        
     }
+    
+
 
     // 자산 양식
     private Asset createAsset(String name, BigDecimal amount, String type, LocalDateTime date, BigDecimal acquisitionCost) {
@@ -124,5 +155,16 @@ class SaveAssetLiabilityDataToDatabase {
         asset_liability_log.setDescription(description);
         asset_liability_log.setDate(date);
         return asset_liability_log;
+    }
+    
+    // 재고 양식
+    private Stock createStock(String name, BigDecimal price, int quantity, String category, int reorderlevel) {
+    	Stock stock = new Stock();
+    	stock.setName(name);
+    	stock.setPrice(price);
+    	stock.setQuantity(quantity);
+    	stock.setCategory(category);
+    	stock.setReorderLevel(reorderlevel);
+    	return stock;
     }
 }

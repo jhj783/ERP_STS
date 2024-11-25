@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.erp.erpsystem.db.AccountRepository;
 import com.erp.erpsystem.db.AssetRepository;
 //import com.google.gson.Gson;
+import com.erp.erpsystem.db.StockRepository;
 
 //import org.junit.jupiter.api.Test;
 //import org.springframework.boot.test.context.SpringBootTest;
@@ -32,6 +33,9 @@ public class ErpChartsService {
 	
 	@Autowired
 	private AssetRepository assetRepository;
+	
+	@Autowired
+	private StockRepository stockRepository;
 
 	// 차트.매출액(막대)&순이익(꺾은선) //
 	public Map<String, List<BigDecimal>> getSalesAndNetProfit(LocalDateTime sDate, LocalDateTime eDate) {
@@ -141,6 +145,20 @@ public class ErpChartsService {
         }
 
         return assetRatioData;
+    }
+    
+    // 차트.재고 //
+    public Map<String, Integer> getStockData(){
+    	Map<String, Integer> stocks = new HashMap<>();
+    	List<Object[]> results = stockRepository.findChartStockData();
+    	
+        for (Object[] row : results) {
+            String name = (String) row[0];
+            int price = (Integer) row[1];
+            stocks.put(name, price);
+        }
+    	
+    	return stocks;
     }
 
 	/*
