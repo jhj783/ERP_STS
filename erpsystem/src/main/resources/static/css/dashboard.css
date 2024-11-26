@@ -17,7 +17,7 @@ html {
     box-sizing: border-box;
 }
 
-/* 기본 차트 카드 스타일 */
+/* 기본 차트 카드 스타일 (재무 지표 분석, 매출액 및 순이익, 운영 비용 분포, 부채 분석) */
 .chart-card {
     background-color: white;
     border-radius: 8px;
@@ -25,6 +25,27 @@ html {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+}
+
+/* 재고 현황 차트 카드 스타일 */
+.chart-card.stock-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 570px; /* 기존 높이 유지 */
+    
+    /* 그리드 셀보다 넓게 설정 */
+    width: 135%; /* 그리드 셀의 2배 너비 */
+    
+    /* 절대 위치로 설정하여 오버플로우 허용 */
+    position: relative;
+    left: 0; /* 기본 위치 유지 */
+    
+    /* 필요 시 z-index 설정 */
+    z-index: 1;
 }
 
 /* 카드 내용 스타일 */
@@ -35,9 +56,12 @@ html {
 }
 
 .card-text {
-    padding: 10px;
-    background-color: #ecf0f1;
-    text-align: center;
+	width: 100%; /* 전체 폭 차지 */
+	background-color: #f0f0f0; /* 원하는 배경 색상 */
+	padding: 10px;
+	border-radius: 4px;
+	text-align: center; /* 텍스트 중앙 정렬 */
+	margin-bottom: 10px; /* 아래 요소와 간격 */
 }
 
 .card-text p {
@@ -57,35 +81,40 @@ html {
     height: auto !important;
 }
 
-/* 자산 & 자산 분포 컨테이너 */
-.vertical-container {
+/* 자본 부채 비율 & 자산 분포 컨테이너 (재본부채비율, 자산 분포) */
+.asset-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    grid-row: span 2;
+    gap: 20px;
+    align-items: flex-end; /* 중앙에서 오른쪽으로 변경 */
 }
 
-/* 작은 차트 크기 */
+/* 작은 차트 크기 (자본 부채 비율, 자산 분포) */
 .small-card {
-    height: 45%; /* 차트 높이 조정 */
+    display: flex; /* flex 속성을 추가하여 정렬 가능 */
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 224px;
+    position: relative;
 }
-
-
-/* 차트 캔버스 스타일 */
-.card-chart canvas {
-    width: 100% !important;
-    height: auto !important;
+.small-card canvas {
+    height: auto;
+    display: block;
 }
-
-/* 큰 차트를 위한 스타일 */
-.large-card {
-    grid-row: span 2; /* 세로로 2칸 차지 */
+.small-chart-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+	width: 400px;
+	align-items: center;
 }
-
 /* 반응형 디자인 */
+
+
 @media (max-width: 1200px) {
     .charts-container {
         grid-template-columns: repeat(2, 1fr); /* 2열 구성 */
@@ -96,21 +125,6 @@ html {
     .charts-container {
         grid-template-columns: 1fr; /* 1열 구성 */
     }
-}
-
-/* 자산 & 자산 분포 차트 크기 조정 */
-.chart-card.asset-chart {
-    height: 200px; /* 차트 높이 조정 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.chart-card.asset-distribution {
-    height: 200px; /* 자산 분포 차트 높이 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 /* 추가 차트 스타일 */
@@ -126,94 +140,29 @@ html {
     }
 }
 
-/* 기본 차트 카드 스타일 */
-.chart-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+/* 환율 분석 섹션 스타일 */
+.chart-card .card-exchange-rate {
     display: flex;
     flex-direction: column;
-}
-
-/* 큰 차트를 위한 스타일 */
-.large-card {
-    grid-row: span 2; /* 세로로 2칸 차지 */
-}
-
-/* 재무제표 스타일 */
-.financial-statement {
-    margin: 20px;
-    background-color: white;
+    align-items: center;
+    justify-content: center;
+    height: 91px; /* 카드 높이 조절 */
+    background-color: #f9f9f9; /* 배경 색상 */
+    border: 1px solid #e0e0e0; /* 테두리 */
+    border-radius: 8px; /* 모서리 둥글게 */
     padding: 20px;
-    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
 }
 
-.financial-statement h2, 
-.financial-statement h3, 
-.financial-statement p {
-    text-align: center;
-    margin: 0;
-    padding: 5px;
+.chart-card .card-exchange-rate p {
+    font-size: 1.1em;
+    margin: 10px 0;
+    color: #333;
 }
 
-.financial-statement table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.financial-statement th, 
-.financial-statement td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-.financial-statement th {
-    background-color: #f2f2f2;
-    text-align: center;
-}
-
-.financial-statement td {
-    text-align: left;
-}
-
-.financial-statement tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.financial-statement strong {
-    font-weight: bold;
-}
-
-
-
-
-/* 차트 카드 스타일 */
-.chart-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+/* 부채 분석과 환율 분석을 감싸는 컨테이너 */
+.liability-exchange-container {
     display: flex;
     flex-direction: column;
+    gap: 20px; /* 20px 간격 추가 */
 }
-
-.card-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.card-chart {
-    flex: 1;
-    padding: 10px;
-    max-height: 400px; /* 최대 높이 제한 */
-    height: auto;
-}
-
-.card-chart canvas {
-    width: 100% !important;
-    height: auto !important;
-}
-

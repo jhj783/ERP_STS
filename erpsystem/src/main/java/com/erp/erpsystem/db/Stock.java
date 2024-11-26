@@ -7,7 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.Lob;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,5 +32,8 @@ public class Stock {
     private String category; // 카테고리
     
     private int reorderLevel; // 재주문 수준
+
+    @Column(length = 500)
+    private String imagePath; // 이미지 경로
 
 }

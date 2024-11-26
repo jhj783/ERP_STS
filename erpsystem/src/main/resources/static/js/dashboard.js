@@ -18,13 +18,17 @@ async function loadCharts() {
 		createSalesNetProfitChart(salesAndNetProfit);
 		createOperatingCostChart(costSummary);
 		createLiabilityChart(liabilities);
+		createStockChart(stockData);
 		createCapitalLiabilityChart(capitalLiabilityRatio);
 		createAssetRatioChart(assetRaitoData);
-		createStockChart(stockData);
+
+				
 	} catch (error) {
 		console.error('데이터 가져오기 오류:', error);
 	}
 }
+
+
 
 // 1. 재무 비율 분석 차트 생성 함수
 function createFinancialRatioChart(financialRatios) {
@@ -195,47 +199,63 @@ function createOperatingCostChart(costSummary) {
 
 // 4. 자본 및 부채 비율 차트 생성 함수
 function createCapitalLiabilityChart(capitalLiabilityRatio) {
-	const labels = ['자본', '부채'];
-	const dataValues = [
-		parseFloat(capitalLiabilityRatio.Capital) / 10000, // 만 원 단위로 나누기
-		parseFloat(capitalLiabilityRatio.Libility) / 10000 // 만 원 단위로 나누기
-	];
+    const labels = ['자본', '부채'];
+    const dataValues = [
+        parseFloat(capitalLiabilityRatio.Capital) / 10000,
+        parseFloat(capitalLiabilityRatio.Libility) / 10000
+    ];
 
-	const data = {
-		labels: labels,
-		datasets: [
-			{
-				data: dataValues,
-				backgroundColor: [
-					'rgba(255, 205, 86, 0.5)',
-					'rgba(75, 192, 192, 0.5)'
-				]
-			}
-		]
-	};
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                data: dataValues,
+                backgroundColor: [
+                    'rgba(255, 205, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)'
+                ],
+                borderWidth: 1,
+                borderColor: '#fff',
+                hoverBorderWidth: 2,
+                hoverBorderColor: '#000'
+            }
+        ]
+    };
 
-	const config = {
-		type: 'pie',
-		data: data,
-		options: {
-			plugins: {
-				tooltip: {
-					callbacks: {
-						label: function(context) {
-							const label = context.label || '';
-							const value = context.formattedValue;
-							const total = context.dataset.data.reduce((a, b) => a + b, 0);
-							const percentage = ((context.raw / total) * 100).toFixed(2) + '%';
-							return `${label}: ${value} (${percentage})`; // 만 원 단위로 표시
-						}
-					}
-				}
-			}
-		}
-	};
+    const config = {
+        type: 'pie',
+        data: data,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false, // 비율 고정 해제
+            layout: {
+                padding: 0 // 패딩 제거
+            },
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        padding: 5, // 범례 라벨 패딩 줄이기
+                        boxWidth: 12
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.raw.toLocaleString('ko-KR');
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((context.raw / total) * 100).toFixed(2) + '%';
+                            return `${label}: ${value}만 원 (${percentage})`;
+                        }
+                    }
+                }
+            }
+        }
+    };
 
-	const ctx = document.getElementById('capitalLiabilityChart').getContext('2d');
-	new Chart(ctx, config);
+    const ctx = document.getElementById('capitalLiabilityChart').getContext('2d');
+    new Chart(ctx, config);
 }
 
 
@@ -282,10 +302,10 @@ function createLiabilityChart(liabilities) {
 }
 
 
-// 6. 자산 생성 함수
+// 6. 자산 분포 차트 생성 함수
 function createAssetRatioChart(assetRaitoData) {
-    const labels = Object.keys(assetRaitoData); // 자산 이름들
-    const dataValues = Object.values(assetRaitoData).map(value => parseFloat(value.toFixed(2))); // 자산 값
+    const labels = Object.keys(assetRaitoData);
+    const dataValues = Object.values(assetRaitoData).map(value => parseFloat(value.toFixed(2)));
 
     const data = {
         labels: labels,
@@ -294,11 +314,11 @@ function createAssetRatioChart(assetRaitoData) {
                 label: '자산 분포',
                 data: dataValues,
                 backgroundColor: [
-                    'rgba(75, 192, 192, 0.6)',
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
-                    'rgba(153, 102, 255, 0.6)',
-                    'rgba(255, 99, 132, 0.6)'
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 99, 132, 0.8)'
                 ],
                 borderColor: [
                     'rgba(75, 192, 192, 1)',
@@ -316,7 +336,19 @@ function createAssetRatioChart(assetRaitoData) {
         type: 'doughnut',
         data: data,
         options: {
+            responsive: true,
+            maintainAspectRatio: false, // 비율 고정 해제
+            layout: {
+                padding: 0 // 패딩 제거
+            },
             plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        padding: 5, // 범례 라벨 패딩 줄이기
+                        boxWidth: 12
+                    }
+                },
                 tooltip: {
                     callbacks: {
                         label: function (context) {
@@ -324,9 +356,15 @@ function createAssetRatioChart(assetRaitoData) {
                             const value = context.raw.toLocaleString('ko-KR');
                             const total = context.dataset.data.reduce((acc, val) => acc + val, 0);
                             const percentage = ((context.raw / total) * 100).toFixed(2) + '%';
-                            return `${label}: ${value}원 (${percentage})`;
+                            return `${label}: ${value}만 원 (${percentage})`;
                         }
                     }
+                }
+            },
+            cutout: '50%', // 도넛 내부 공백 조정 (필요 시 값 변경)
+            elements: {
+                arc: {
+                    borderWidth: 1 // 아크 테두리 두께 조정
                 }
             }
         }
@@ -364,7 +402,7 @@ function createStockChart(stockData) {
         data: data,
         options: {
             indexAxis: 'y', // 가로로 뻗는 막대그래프
-            maintainAspectRatio: true, // 세로 길이 늘어나는 문제 해결
+            maintainAspectRatio: false, // 세로 길이 늘어나는 문제 해결
             responsive: true,
             scales: {
                 x: {
@@ -401,4 +439,3 @@ function createStockChart(stockData) {
     const ctx = document.getElementById('stockChart').getContext('2d');
     new Chart(ctx, config);
 }
-

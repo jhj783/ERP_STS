@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <title>차트 대시보드</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
 	<link rel="stylesheet" th:href="@{css//navbar.css}">
+	<link rel="stylesheet" th:href="@{/css/dashboard.css}">
 </head>
 
 <body>
@@ -51,20 +51,37 @@
 	        </div>
 	    </div>
 
-	    <!-- 4. 부채 분석 -->
-	    <div class="chart-card">
-	        <div class="card-content">
-	            <div class="card-text">
-	                <p>부채 분석</p>
-	            </div>
-	            <div class="card-chart">
-	                <canvas id="liabilityChart"></canvas>
-	            </div>
-	        </div>
-	    </div>
+		
+		<div class="liability-exchange-container">		
+		    <!-- 4. 부채 분석 -->
+		    <div class="chart-card">
+		        <div class="card-content">
+		            <div class="card-text">
+		                <p>부채 분석</p>
+		            </div>
+		            <div class="card-chart">
+		                <canvas id="liabilityChart"></canvas>
+		            </div>
+		        </div>
+		    </div>
+		    
+		    <!-- 5. 환율 분석 -->
+		    <div class="chart-card">
+		        <div class="card-content">
+		            <div class="card-text">
+		                <p>환율 분석</p>
+		            </div>
+		            <div class="card-exchange-rate">
+		                <p>USD/KRW: 1,200.50</p>
+		                <p>EUR/KRW: 1,400.75</p>
+		                <p>JPY/KRW: 10.50</p>
+		            </div>
+		        </div>
+		    </div>
+		</div>
 
 		<!-- 재고 현황 막대그래프 추가 -->
-		<div class="chart-card">
+		<div class="chart-card stock-card">
 		    <div class="card-content">
 		        <div class="card-text">
 		            <p>재고 현황</p>
@@ -74,39 +91,28 @@
 		        </div>
 		    </div>
 		</div>
+			
+		
+		<div class="asset-container">
+			<div class="small-chart-card">
+			    <div class="card-text">
+			        <p>자본 부채 비율</p>
+			    </div>
+			    <div class="small-card">
+			        <canvas id="capitalLiabilityChart"></canvas>
+			    </div>
+			</div>
+			
+			<div class="small-chart-card">
+			    <div class="card-text">
+			        <p>자산 분포</p>
+			    </div>
+			    <div class="small-card">
+			        <canvas id="assetRatioChart"></canvas>
+			    </div>
+			</div>
+		</div>
 
-
-	    <!-- 6. 자산 및 자산 분포 -->
-	    <div class="chart-card vertical-container">
-	        <div class="card-content small-card">
-	            <div class="card-text">
-	                <p>자본 부채 비율</p>
-	            </div>
-	            <div class="card-chart">
-	                <canvas id="capitalLiabilityChart"></canvas>
-	            </div>
-	        </div>
-	        <div class="card-content small-card">
-	            <div class="card-text">
-	                <p>자산 분포</p>
-	            </div>
-	            <div class="card-chart">
-	                <canvas id="assetRatioChart"></canvas>
-	            </div>
-	        </div>
-	    </div>
-
-	    <!-- 7. 환율 -->
-	    <div class="chart-card">
-	        <div class="card-content">
-	            <div class="card-text">
-	                <p>환율</p>
-	            </div>
-	            <div class="card-chart">
-	                <canvas id="exchangeRateChart"></canvas>
-	            </div>
-	        </div>
-	    </div>
 	</div>
 
     <script src="js/dashboard.js"></script>
