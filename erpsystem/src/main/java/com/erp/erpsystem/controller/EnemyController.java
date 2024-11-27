@@ -20,11 +20,6 @@ public class EnemyController {
         return "dashboard";
     }
     
-    @GetMapping("/account")
-    public String showBalanceLogPage() {
-        return "account";
-    }
-    
     @GetMapping("/asset")
     public String showAssetPage() {
         return "Asset";

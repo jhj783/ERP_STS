@@ -3,13 +3,51 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>예치금</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>계정 목록</title>
     <link rel="stylesheet" th:href="@{/css/navbar.css}">
+	<link rel="stylesheet" th:href="@{/css/Account.css}">
 </head>
 
 <body>
-    <!-- 네비게이션 바 포함 -->
-    <div th:insert="navbar :: navbar"></div>
+	<!-- 네비게이션 바 포함 -->
+	<div th:insert="navbar :: navbar"></div>
+	
+    <div class="financial-statements-container">
+        <h1>예치금 조회</h1>
+
+        <div class="statement-section">
+            <table id="accountTable">
+                <thead>
+                    <tr>
+                        <th>잔액</th>
+                        <th>금액</th>
+                        <th>날짜</th>
+                        <th>설명</th>
+                        <th>유형</th>
+                    </tr>
+                </thead>
+                <tbody>
+					<tr th:each="account : ${accounts}">
+					    <td th:text="${#numbers.formatCurrency(account.afterBalance).replace('.00', '')}"></td>
+					    <td th:text="${#numbers.formatCurrency(account.amount).replace('.00', '')}"></td>
+					    <td th:text="${account.date}"></td>
+					    <td th:text="${account.description}"></td>
+					    <td th:text="${account.type}"></td>
+					</tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- 페이지네이션 버튼 -->
+        <div class="pagination">
+            <button th:disabled="${currentPage == 0}" 
+                    th:onclick="|window.location.href='?page=${currentPage - 1}'|">이전</button>
+            <span th:text="${currentPage + 1}"></span> / <span th:text="${totalPages}"></span>
+            <button th:disabled="${currentPage + 1 == totalPages}" 
+                    th:onclick="|window.location.href='?page=${currentPage + 1}'|">다음</button>
+        </div>
+    </div>
 </body>
+
+</html>

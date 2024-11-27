@@ -8,7 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.PrePersist;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,4 +34,14 @@ public class Account {
 
     @Column(nullable = false)
     private BigDecimal afterBalance; // 거래 후 잔액
+    
+    @Column(nullable = true)
+    private Integer tuno; //  거래고유번호
+    
+    @PrePersist
+    public void prePersist() {
+        if (this.tuno == null) {
+            this.tuno = 0; // 기본값 설정
+        }
+    }
 }

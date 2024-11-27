@@ -45,8 +45,9 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
         @Param("endDate") LocalDateTime endDate
     );
 
-
-
-  	 	
+    // Tuno의 가장 높은 값
+    @Query("SELECT MAX(a.tuno) FROM Account a")
+    int findMaxTuno();
+	 	
     
 }
