@@ -19,7 +19,7 @@
 	
 	<div class="financial-statements-container">
 	    <div class="header-line">
-	        <h1>예치금 조회</h1>
+	        <h2>예치금 조회</h2>
 	        <button onclick="window.location.href='/account/send'">입금 페이지로 이동</button>
 	    </div>
 
@@ -57,5 +57,23 @@
         </div>
     </div>
 </body>
+
+<script>
+    window.onload = function() {
+        fetch('/refreshAccount', {
+            method: 'POST'
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('계정 갱신이 완료되었습니다.');
+            } else {
+                console.error('계정 갱신에 실패했습니다.');
+            }
+        })
+        .catch(error => {
+            console.error('요청 실패:', error);
+        });
+    };
+</script>
 
 </html>

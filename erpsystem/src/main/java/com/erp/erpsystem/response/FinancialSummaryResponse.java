@@ -43,6 +43,8 @@ public class FinancialSummaryResponse {
     private List<Object[]> cashFlowFromInvestmentActivities; // 투자활동으로 인한 현금흐름
     private BigDecimal basicEquity; // 기초 자본금
     private BigDecimal basicCapital; // 기초 총 자본
+    private BigDecimal stockAsset; // 재고 자산
+    private BigDecimal purchaseDebt; // 매입 채무
 
     // 포맷팅된 문자열 필드들
     private String formattedSales; // 포맷팅된 매출액 (예: "1,000,000원")
@@ -75,5 +77,7 @@ public class FinancialSummaryResponse {
     private String formattedTotalInvestmentActivityCashFlow; //포맷팅된 합계 투자활동 현금흐름
     private String formattedBasicEquity; // 포맷팅된 기초 자본금
     private String formattedBasicCapital; // 포맷팅된 기초 총 자본
-    
+    private String formattedStockAsset; // 포맷팅된 재고 자산
+    private String formattedPurchaseDebt; // 포맷팅된 매입 채무
+ 
 }

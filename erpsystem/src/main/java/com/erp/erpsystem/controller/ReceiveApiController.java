@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.erp.erpsystem.service.RefreshAccountFromApiService;
 import com.erp.erpsystem.service.SendMoneyApiService;
 
 @Controller
@@ -12,6 +13,9 @@ public class ReceiveApiController {
 
     @Autowired
     private SendMoneyApiService sendMoneyApiService;
+    
+    @Autowired
+    private RefreshAccountFromApiService refreshAccountFromApiService;
 
     @PostMapping("/processDeposit")
     public String processDeposit(
@@ -23,5 +27,10 @@ public class ReceiveApiController {
 
         // 처리 완료 후 리다이렉트
         return "redirect:/account";
+    }
+    
+    @PostMapping("/refreshAccount")
+    public void refreshAccount() {
+        refreshAccountFromApiService.saveAccountsFromApi();
     }
 }

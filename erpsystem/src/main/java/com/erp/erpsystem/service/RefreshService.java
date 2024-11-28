@@ -35,6 +35,12 @@ public class RefreshService {
         }
 	}
 	
+	// 자산 업데이트
+	@Transactional
+	public void updateAsset() {
+		
+	}
+	
 	// 자산 추가
 	@Transactional
 	public void insertAssetByAsset(String name, BigDecimal amount, BigDecimal acquisitionCost, String type) {
@@ -49,7 +55,7 @@ public class RefreshService {
         assetRepository.save(newAsset);
         
         // 로그
-        insertLogByAsset(name, amount, "new 자산", now);
+        insertLog(name, amount, "new 자산", now);
 	}
 
 	// 자산 삭제
@@ -64,7 +70,7 @@ public class RefreshService {
 	        assetRepository.delete(assetToDelete);
 
 	        // 로그
-	        insertLogByAsset(name, amount, "deleted 자산", date);
+	        insertLog(name, amount, "deleted 자산", date);
 	    } else {
 	        throw new IllegalArgumentException("No asset found with name: " + name);
 	    }
@@ -72,7 +78,7 @@ public class RefreshService {
 	
 	// 로그 추가
 	@Transactional
-	public void insertLogByAsset(String name, BigDecimal amount, String description, LocalDateTime date) {
+	public void insertLog(String name, BigDecimal amount, String description, LocalDateTime date) {
 		AssetLiabilityLog newAssetLiabilityLog = new AssetLiabilityLog();
 		newAssetLiabilityLog.setName(name);
 		newAssetLiabilityLog.setAmount(amount);  

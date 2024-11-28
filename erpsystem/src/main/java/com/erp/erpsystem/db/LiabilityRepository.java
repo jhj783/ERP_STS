@@ -22,4 +22,6 @@ public interface LiabilityRepository extends JpaRepository<Liability, Long> {
 	
 	@Query("SELECT a FROM Liability a") 
     List<Liability> findLiabilityData();
+	
+	Liability findByName(String name);
 }

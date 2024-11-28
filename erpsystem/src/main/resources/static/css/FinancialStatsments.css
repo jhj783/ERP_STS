@@ -97,3 +97,44 @@ html {
         grid-template-columns: repeat(1, 1fr);
     }
 }
+
+
+
+/* 날짜 */
+.date-picker-container {
+    position: fixed;
+    top: 5px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.date-picker-container label {
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.date-picker-container input {
+    margin-right: 10px;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.submit-btn {
+    padding: 8px 15px;
+    font-size: 14px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: rgb(128, 128, 128);
+}
+

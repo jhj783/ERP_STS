@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.erp.erpsystem.db.AccountRepository;
 import com.erp.erpsystem.db.AssetLiabilityLogRepository;
 import com.erp.erpsystem.db.LiabilityRepository;
+import com.erp.erpsystem.db.StockRepository;
 
 //@SpringBootTest
 @Service
@@ -27,6 +28,9 @@ public class FinancialStatementService {
 
 	@Autowired
 	private LiabilityRepository liabilityRepository;
+	
+	@Autowired
+	private StockRepository stockRepository; 
 
 	/*
 	 * @Autowired private GetQuartersService getQuartersService;
@@ -70,9 +74,14 @@ public class FinancialStatementService {
 		return results != null ? results : BigDecimal.ZERO;
 	}
 	
-	// 현금흐름표.영업활동으로 인한 현금흐름.합계 영업활동 현금흐름 // +매출채권 +매입채무 필요
+	// 현금흐름표.영업활동으로 인한 현금흐름.매입채무
+	public BigDecimal getPurchaseDebt(LocalDateTime sDate, LocalDateTime eDate) {		
+		return assetLiabilityLogRepository.findCashFlowFinancial(sDate, eDate);
+	}
+	
+	// 현금흐름표.영업활동으로 인한 현금흐름.합계 영업활동 현금흐름 // +매출채권 필요
 	public BigDecimal getTotalSalesActivityFlow(LocalDateTime sDate, LocalDateTime eDate) {
-		return getDepreciation(sDate, eDate);
+		return getNetProfit(sDate, eDate).subtract(getDepreciation(sDate, eDate)).add(getPurchaseDebt(sDate, eDate));
 	}
 
 	// 손익 계산서.이자 비용 //
@@ -110,11 +119,14 @@ public class FinancialStatementService {
 		return currentCash != null ? currentCash : BigDecimal.ZERO;
 	}
 
-	// 대차 대조표.자산.유동자산.재고자산 //
+	// 대차 대조표.자산.유동자산.재고자산 // 로그를 안 만들어서 현재값만 뱉는중
+	public BigDecimal getStockAsset() {
+		return stockRepository.findStockAsset();
+	}
 
 	// 대차 대조표.자산.유동자산.합계 유동자산 //
 	public BigDecimal getCurrentAssets(LocalDateTime eDate) {
-		return getCash(eDate); // +재고자산 + 매출채권 필요
+		return getCash(eDate).add(getStockAsset()); // + 매출채권 필요
 	}
 
 	// 대차 대조표.자산.비유동자산.list //
@@ -251,7 +263,7 @@ public class FinancialStatementService {
 
 	// 자본변동표.이익잉여금.기초 이익잉여금 //
 	public BigDecimal getBasicRetainedEarnings(LocalDateTime sDate, LocalDateTime eDate) {
-		return getRetainedEarnings(eDate).subtract(getNetProfit(sDate, eDate));
+		return getEdRetainedEarnings(eDate).subtract(getNetProfit(sDate, eDate));
 	}
 
 	// 자본변동표.이익잉여금.기말 이익잉여금 //

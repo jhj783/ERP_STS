@@ -23,6 +23,8 @@ async function loadCharts() {
 		createStockChart(stockData);
 		createCapitalLiabilityChart(capitalLiabilityRatio);
 		createAssetRatioChart(assetRaitoData);
+		
+		fetchExchangeRates();
 
 				
 	} catch (error) {
@@ -438,4 +440,26 @@ function createStockChart(stockData) {
 
     const ctx = document.getElementById('stockChart').getContext('2d');
     new Chart(ctx, config);
+}
+
+// 환율
+async function fetchExchangeRates() {
+	const API_URL = "https://api.exchangerate-api.com/v4/latest/USD";
+	
+    try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+
+        const usdToKrw = data.rates.KRW.toFixed(2);
+        const eurToKrw = (data.rates.KRW / data.rates.EUR).toFixed(2);
+        const jpyToKrw = (data.rates.KRW / data.rates.JPY).toFixed(2);
+
+        document.querySelector(".card-exchange-rate").innerHTML = `
+            <p>USD/KRW: ${usdToKrw}</p>
+            <p>EUR/KRW: ${eurToKrw}</p>
+            <p>JPY/KRW: ${jpyToKrw}</p>
+        `;
+    } catch (error) {
+        console.error("환율 데이터를 가져오는 중 오류 발생:", error);
+    }
 }

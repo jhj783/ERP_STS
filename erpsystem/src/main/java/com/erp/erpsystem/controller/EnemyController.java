@@ -49,6 +49,7 @@ public class EnemyController {
         return "stock";
     }
     
+    
     @GetMapping("/mainn")
     public String testPage() {
         return "mainn";

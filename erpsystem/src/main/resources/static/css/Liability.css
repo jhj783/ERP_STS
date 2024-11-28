@@ -61,3 +61,58 @@ html {
 .statement-section span {
     font-weight: bold;
 }
+
+
+
+/* 부채 상환 폼 스타일 */
+.repayment-form {
+    display: none; /* 기본적으로 숨김 */
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.repayment-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.repayment-form select,
+.repayment-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.repayment-form button {
+    padding: 10px 20px;
+    background-color: rgb(0, 0, 64);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.repayment-form button:hover {
+    background-color: rgb(192, 192, 192);
+}
+
+.statement-footer button {
+    padding: 10px 20px;
+    border: none;
+    background-color: rgb(0, 0, 64);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.statement-footer button:hover {
+    background-color: rgb(192, 192, 192);
+}

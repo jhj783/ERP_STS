@@ -18,6 +18,17 @@
 <body>
 	<div th:insert="navbar :: navbar"></div>
 
+	<!--날짜 선택-->
+	<div class="date-picker-container">
+	    <form action="/financialstatements" method="get">
+	        <label for="start-date">시작 날짜:</label>
+	        <input type="date" id="start-date" name="startDate">
+	        <label for="end-date">끝 날짜:</label>
+	        <input type="date" id="end-date" name="endDate">
+	        <button type="submit" id="submit-btn" class="submit-btn">확인</button>
+	    </form>
+	</div>
+
 	<!-- 재무제표 컨테이너 -->
 	<div class="statements-container">
 
@@ -27,7 +38,7 @@
 			<div class="card-content">
 				<div class="card-text">
 					<h2>대차대조표</h2>
-					<p>2023년 12월 31일</p>
+					<p th:text="${#temporals.format(endDate, 'yyyy년 MM월 dd일')}"></p>
 				</div>
 				<div class="card-table">
 					<!-- 대차대조표 표 -->
@@ -46,12 +57,10 @@
 								<td>&nbsp;&nbsp;현금</td>
 								<td th:text="${financialData.formattedCash}"></td>
 							</tr>
-							<!--
 							<tr>
 								<td>&nbsp;&nbsp;재고자산</td>
-								<td>아직</td>
+								<td th:text="${financialData.formattedStockAsset}"></td>
 							</tr>
-							-->
 							<tr>
 								<td><strong>합계 유동자산</strong></td>
 								<td th:text="${financialData.formattedCurrentAssets}"><strong></strong></td>
@@ -152,7 +161,7 @@
 			<div class="card-content">
 				<div class="card-text">
 					<h2>손익계산서</h2>
-					<p>2023년 1월 1일 ~ 2023년 12월 31일</p>
+					<p th:text="${#temporals.format(startDate, 'yyyy년 MM월 dd일')} + ' ~ ' + ${#temporals.format(endDate, 'yyyy년 MM월 dd일')}"></p>
 				</div>
 				<div class="card-table">
 					<!-- 손익계산서 표 -->
@@ -206,7 +215,7 @@
 			<div class="card-content">
 				<div class="card-text">
 					<h2>현금흐름표</h2>
-					<p>2023년 1월 1일 ~ 2023년 12월 31일</p>
+					<p th:text="${#temporals.format(startDate, 'yyyy년 MM월 dd일')} + ' ~ ' + ${#temporals.format(endDate, 'yyyy년 MM월 dd일')}"></p>
 				</div>
 				<div class="card-table">
 					<!-- 현금흐름표 표 -->
@@ -224,6 +233,10 @@
 							<tr>
 								<td>감가상각비</td>
 								<td th:text="${financialData.formattedWriteDown}"></td>
+							</tr>
+							<tr>
+								<td>매입 채무</td>
+								<td th:text="${financialData.formattedPurchaseDebt}"></td>
 							</tr>
 							<tr>
 								<td><strong>합계 영업활동 현금흐름</strong></td>
@@ -301,7 +314,7 @@
 			<div class="card-content">
 				<div class="card-text">
 					<h2>자본변동표</h2>
-					<p>2023년 1월 1일 ~ 2023년 12월 31일</p>
+					<p th:text="${#temporals.format(startDate, 'yyyy년 MM월 dd일')} + ' ~ ' + ${#temporals.format(endDate, 'yyyy년 MM월 dd일')}"></p>
 				</div>
 				<div class="card-table">
 					<!-- 자본변동표 표 -->
