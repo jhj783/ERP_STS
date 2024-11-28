@@ -25,6 +25,16 @@ public class EnemyController {
         return "Asset";
     }
     
+    @GetMapping("/asset/insert")
+    public String showInsertAssetPage() {
+        return "AssetInsert";
+    }
+    
+    @GetMapping("/asset/delete")
+    public String showDeleteAssetPage() {
+        return "AssetDelete";
+    }
+    
     @GetMapping("/liability")
     public String showLiabilityPage() {
         return "Liability";
@@ -39,9 +49,9 @@ public class EnemyController {
         return "stock";
     }
     
-    @GetMapping("/test")
+    @GetMapping("/mainn")
     public String testPage() {
-        return "test";
+        return "mainn";
     }
     
     /*

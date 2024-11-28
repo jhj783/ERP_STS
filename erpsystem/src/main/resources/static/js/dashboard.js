@@ -4,7 +4,8 @@ async function loadCharts() {
 	try {
 		const response = await fetch('http://localhost:8080/api/charts?startDate=2023-01-01T00:00&endDate=2023-12-31T23:59');
 		const data = await response.json();
-
+		const previousQuarterNames = data.previousQuarterNames;		
+		
 		const financialRatios = data.financialRatios;
 		const salesAndNetProfit = data.salesAndNetProfit;
 		const costSummary = data.costSummary;
@@ -12,12 +13,13 @@ async function loadCharts() {
 		const liabilities = data.liabilities;
 		const assetRaitoData = data.assetRaitoData;
 		const stockData = data.stockData;
+		
 
 		// 각 차트 생성 함수 호출
-		createFinancialRatioChart(financialRatios);
-		createSalesNetProfitChart(salesAndNetProfit);
+		createFinancialRatioChart(financialRatios, previousQuarterNames);
+		createSalesNetProfitChart(salesAndNetProfit, previousQuarterNames);
 		createOperatingCostChart(costSummary);
-		createLiabilityChart(liabilities);
+		createLiabilityChart(liabilities, previousQuarterNames);
 		createStockChart(stockData);
 		createCapitalLiabilityChart(capitalLiabilityRatio);
 		createAssetRatioChart(assetRaitoData);
@@ -28,11 +30,9 @@ async function loadCharts() {
 	}
 }
 
-
-
 // 1. 재무 비율 분석 차트 생성 함수
-function createFinancialRatioChart(financialRatios) {
-	const labels = ['기간 1', '기간 2', '기간 3', '기간 4'];
+function createFinancialRatioChart(financialRatios, previousQuarterNames) {
+	const labels = previousQuarterNames;
 	const roeData = financialRatios.ROEs.map(value => parseFloat(value.toFixed(2)));
 	const roaData = financialRatios.ROAs.map(value => parseFloat(value.toFixed(2)));
 
@@ -79,8 +79,8 @@ function createFinancialRatioChart(financialRatios) {
 }
 
 // 2. 매출액 및 순이익 차트 생성 함수
-function createSalesNetProfitChart(salesAndNetProfit) {
-	const labels = ['1분기', '2분기', '3분기', '4분기'];
+function createSalesNetProfitChart(salesAndNetProfit, previousQuarterNames) {
+	const labels = previousQuarterNames;
 	const salesData = salesAndNetProfit.Sales.map(value => parseFloat(value) / 10000); // 만 원 단위로 나누기
 	const netProfitData = salesAndNetProfit.NetProfit.map(value => parseFloat(value) / 10000); // 만 원 단위로 나누기
 
@@ -260,8 +260,8 @@ function createCapitalLiabilityChart(capitalLiabilityRatio) {
 
 
 // 5. 부채 차트 생성 함수
-function createLiabilityChart(liabilities) {
-	const labels = ['기간 1', '기간 2', '기간 3', '기간 4'];
+function createLiabilityChart(liabilities, previousQuarterNames) {
+	const labels = previousQuarterNames;
 	const liabilitiesData = liabilities.map(value => parseFloat(value.toFixed(2)));
 
 	// 디버깅용 콘솔 로그

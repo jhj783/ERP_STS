@@ -2,6 +2,9 @@
     background-color: #2c3e50;
     color: white;
     padding: 10px 20px;
+    display: flex; /* 플렉스 박스로 전환 */
+    justify-content: space-between; /* 왼쪽: 메뉴, 오른쪽: 버튼 */
+    align-items: center; /* 세로 정렬 */
 }
 
 .navbar ul {
@@ -23,4 +26,18 @@
 
 .navbar a:hover {
     text-decoration: underline;
+}
+
+.report-btn {
+    background-color: rgb(128, 128, 128); /* 붉은 색 버튼 */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 15px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.report-btn:hover {
+    background-color: rgb(192, 192, 192); /* 버튼 호버 색상 */
 }

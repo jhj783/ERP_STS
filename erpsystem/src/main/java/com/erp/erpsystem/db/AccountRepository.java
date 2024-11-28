@@ -48,6 +48,10 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     // Tuno의 가장 높은 값
     @Query("SELECT MAX(a.tuno) FROM Account a")
     int findMaxTuno();
-	 	
+    
+    // Tuno가 가장 높은 afterbalance
+    @Query("SELECT a.afterBalance FROM Account a WHERE a.tuno = (SELECT MAX(tuno) FROM Account)")
+    BigDecimal findAfterBalanceToMaxTuno();
+
     
 }

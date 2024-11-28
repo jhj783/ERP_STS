@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>자산 삭제</title>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <style>
+        /* 전체 페이지 스타일 */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 네비게이션 바 포함 -->
+    <div th:insert="navbar :: navbar"></div>
+
+    <div class="container">
+        <h1>자산 삭제</h1>
+        <form th:action="@{/deleteAsset}" method="post">
+            <div class="form-group">
+                <label for="name">자산 이름</label>
+                <input type="text" id="name" name="name" placeholder="삭제할 자산 이름을 입력하세요" required>
+            </div>
+            <button type="submit" class="submit-btn">삭제하기</button>
+        </form>
+    </div>
+</body>
+
+</html>

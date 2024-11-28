@@ -1,7 +1,6 @@
 package com.erp.erpsystem.controller;
 
-import com.erp.erpsystem.response.ChartsResponse;
-import com.erp.erpsystem.service.ErpChartsService;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,8 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import java.time.LocalDateTime;
+import com.erp.erpsystem.response.ChartsResponse;
+import com.erp.erpsystem.service.ErpChartsService;
+import com.erp.erpsystem.service.GetQuartersService;
 
 @RestController
 @RequestMapping("/api/")
@@ -19,6 +19,9 @@ public class RestApiController {
     
     @Autowired
     private ErpChartsService erpChartsService;
+    
+    @Autowired
+    private GetQuartersService getQuartersService;
 
     /*
     // 재무제표 API
@@ -74,6 +77,9 @@ public class RestApiController {
         chartsResponse.setLiabilities(erpChartsService.getLiabilities(sDate, eDate));
         chartsResponse.setAssetRaitoData(erpChartsService.getAssetRatioData());
         chartsResponse.setStockData(erpChartsService.getStockData());
+        
+        // 분기 이름
+        chartsResponse.setPreviousQuarterNames(getQuartersService.getPreviousQuarterNames());
 
         return chartsResponse;
     }

@@ -37,6 +37,11 @@ public class AccountController {
         model.addAttribute("currentPage", page);
         return "Account";
     }
+    
+    @GetMapping("/account/send")
+    public String showSendPage() {
+        return "AccountSendMoney";
+    }
 
 
 }

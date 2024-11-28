@@ -6,14 +6,22 @@
     <title>계정 목록</title>
     <link rel="stylesheet" th:href="@{/css/navbar.css}">
 	<link rel="stylesheet" th:href="@{/css/Account.css}">
+	
+	<!-- JavaScript 라이브러리 및 파일 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<script src="/js/report.js"></script>
 </head>
 
 <body>
 	<!-- 네비게이션 바 포함 -->
 	<div th:insert="navbar :: navbar"></div>
 	
-    <div class="financial-statements-container">
-        <h1>예치금 조회</h1>
+	<div class="financial-statements-container">
+	    <div class="header-line">
+	        <h1>예치금 조회</h1>
+	        <button onclick="window.location.href='/account/send'">입금 페이지로 이동</button>
+	    </div>
 
         <div class="statement-section">
             <table id="accountTable">

@@ -4,8 +4,94 @@
 <head>
     <meta charset="UTF-8">
     <title>자산 목록</title>
-    <link rel="stylesheet" th:href="@{/css/AssetLiability.css}">
+
     <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <style>
+        /* 전체 페이지 스타일 */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        /* 컨테이너 스타일 */
+        .financial-statements-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 섹션 스타일 */
+        .statement-section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .statement-section h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .statement-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .statement-section th,
+        .statement-section td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .statement-section th {
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        .statement-section td {
+            text-align: center;
+        }
+
+        .statement-footer {
+            display: flex;
+            justify-content: space-between; /* 왼쪽과 오른쪽 요소를 양쪽 끝에 배치 */
+            align-items: center;
+        }
+
+        .statement-footer .buttons {
+            display: flex;
+            gap: 10px; /* 버튼 간 간격 */
+        }
+
+        .statement-footer button {
+            padding: 10px 15px;
+            border: none;
+            background-color: rgb(0, 0, 64);
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .statement-footer button:hover {
+            background-color: rgb(192, 192, 192);
+        }
+
+        .statement-footer h3 {
+            color: #333;
+            margin: 0;
+        }
+
+        .statement-footer span {
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,7 +118,17 @@
                     <!-- 자산 데이터가 동적으로 삽입됩니다 -->
                 </tbody>
             </table>
-            <h3>자산 총액: <span id="totalAssetAmount">0원</span></h3>
+
+            <div class="statement-footer">
+                <!-- 왼쪽: 버튼 -->
+                <div class="buttons">
+                    <button onclick="window.location.href='/asset/insert'">추가</button>
+                    <button onclick="window.location.href='/asset/delete'">제거</button>
+                </div>
+
+                <!-- 오른쪽: 자산 총액 -->
+                <h3>자산 총액: <span id="totalAssetAmount">0원</span></h3>
+            </div>
         </div>
     </div>
 

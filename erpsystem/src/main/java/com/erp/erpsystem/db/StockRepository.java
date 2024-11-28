@@ -1,5 +1,6 @@
 package com.erp.erpsystem.db;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,4 +13,7 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
 	
 	Optional<Stock> findByName(String name);
 
+	// 재고자산
+	@Query("SELECT SUM(s.price * s.quantity) FROM Stock s")
+	BigDecimal findStockAsset();
 }

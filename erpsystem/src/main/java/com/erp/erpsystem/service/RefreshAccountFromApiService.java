@@ -12,13 +12,16 @@ import com.erp.erpsystem.db.Account;
 import com.erp.erpsystem.db.AccountRepository;
 
 @Service
-public class SaveAccountFromApiService {
+public class RefreshAccountFromApiService {
 
     @Autowired
     private ReceiveApiService receiveApiService;
     
     @Autowired
     private AccountRepository accountRepository;
+    
+    @Autowired
+    private RefreshService refreshService;
 
     public void saveAccountsFromApi() {
     	
@@ -47,6 +50,9 @@ public class SaveAccountFromApiService {
 		            Account account = createAccount(amount, dateTime, description, type, afterBalance, tuno);
 		
 		            this.accountRepository.save(account);
+		            
+		            // 에셋 테이블의 "예치금" 갱신
+		            refreshService.updateAssetByAccount();
                 }
             }
         } catch (Exception e) {

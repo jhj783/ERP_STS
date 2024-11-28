@@ -17,4 +17,5 @@ public class ChartsResponse {
 	private List<BigDecimal> liabilities;
 	private Map<String, BigDecimal> assetRaitoData;
 	private Map<String, Integer> stockData;
+	private List<String> previousQuarterNames;
 }
