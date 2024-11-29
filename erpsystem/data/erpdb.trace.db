@@ -4722,3 +4722,18 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/ERP/erpsystem
 	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
 	... 135 more
+2024-11-28 21:46:26.158122+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "update account set DESCRIPTION='대금 입금 (기업1) where id=376 type='수익[*]';"; SQL statement:
+update account set DESCRIPTION='대금 입금 (기업1) where id=376 type='수익'; [42000-224]
+2024-11-28 21:46:30.222572+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "update account set DESCRIPTION='대금 입금 (기업1) where id=376, type='수익[*]';"; SQL statement:
+update account set DESCRIPTION='대금 입금 (기업1) where id=376, type='수익'; [42000-224]
+2024-11-28 21:46:41.681365+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "update account set DESCRIPTION='대금 입금 (기업1) where id=376, type='수익[*]';"; SQL statement:
+update account set DESCRIPTION='대금 입금 (기업1) where id=376, type='수익'; [42000-224]
+2024-11-28 21:48:46.721691+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "update account set DESCRIPTION='대금 입금 (기업1)' where id=376[*], type='수익'"; SQL statement:
+update account set DESCRIPTION='대금 입금 (기업1)' where id=376, type='수익' [42000-224]
+2024-11-28 21:48:49.838181+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "update account set DESCRIPTION='대금 입금 (기업1)' where id=376 [*]type='수익'"; SQL statement:
+update account set DESCRIPTION='대금 입금 (기업1)' where id=376 type='수익' [42000-224]

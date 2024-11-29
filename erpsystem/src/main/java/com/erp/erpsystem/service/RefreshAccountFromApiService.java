@@ -43,7 +43,17 @@ public class RefreshAccountFromApiService {
 		            LocalDateTime dateTime = LocalDateTime.parse(trdd + "000000", DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
 		            
 		            String description = record.getString("BnprCntn"); // 거래 내용
-		            String type = dealType(record.getString("MnrcDrotDsnc")); // 거래 유형
+		            
+		            String type;
+		            boolean itisProfit = isProfit(record.getString("MnrcDrotDsnc"));
+		            if(itisProfit) {
+		            	type = "수익";
+		            }
+		            else {
+		            	type = "지출"; 
+		            	amount = amount.negate();
+		            }
+		            
 		            BigDecimal afterBalance = new BigDecimal(record.getString("AftrBlnc")); // 잔액
 		
 		            // Account 객체 생성
@@ -60,11 +70,11 @@ public class RefreshAccountFromApiService {
         }
     }
     
-    public String dealType(String deal) {
+    public boolean isProfit(String deal) {
         if ("1".equals(deal) || "2".equals(deal)) {
-            return "수익";
+            return true;
         }
-        return "지출";
+        return false;
     }
 
     private Account createAccount(BigDecimal amount, LocalDateTime date, String description, String type, BigDecimal afterBalance, int tuno) {

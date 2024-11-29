@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,6 @@ import com.erp.erpsystem.db.Count;
 import com.erp.erpsystem.db.CountRepository;
 
 
-
 @Service
 public class ReceiveApiService {
 
@@ -29,6 +29,9 @@ public class ReceiveApiService {
 
     @Autowired
     private RestTemplate restTemplate;
+    
+    @Value("${api.access.token}")
+    private String accessToken;
 
     public JSONArray searchApiData() throws org.json.JSONException {
         String url = "https://developers.nonghyup.com/InquireTransactionHistory.nh";
@@ -63,7 +66,7 @@ public class ReceiveApiService {
             "FintechApsno": "001",
             "ApiSvcCd": "ReceivedTransferA",
             "IsTuno": "%s",
-            "AccessToken": "a7ae51f122fe3639c8d4f890a2ec7e702eba6eeda9869c779f6463e54cf589b9"
+            "AccessToken": "%s"
           },
           "Bncd": "011",
           "Acno": "3020000011652",
@@ -74,7 +77,7 @@ public class ReceiveApiService {
           "PageNo": "1",
           "Dmcnt": "100"
         }
-        """.formatted(formattedDate, istuno, formattedDate);
+        """.formatted(formattedDate, istuno, accessToken, formattedDate);
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
 

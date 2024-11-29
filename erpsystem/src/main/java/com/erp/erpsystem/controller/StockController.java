@@ -26,15 +26,18 @@ public class StockController {
 
     // 입고/출고 처리
     @PostMapping("/update-stock")
-    public String updateStock(@RequestParam String name, 
-                              @RequestParam int quantity, 
-                              @RequestParam String transactionType) {
+    public String updateStock(
+        @RequestParam("name") String name, 
+        @RequestParam("quantity") int quantity, 
+        @RequestParam("transactionType") String transactionType
+    ) {
         // 입고인 경우 양의 값, 출고인 경우 음의 값으로 처리
         if ("IN".equals(transactionType)) {
             stockService.updateStock(name, quantity); // 입고 처리
         } else if ("OUT".equals(transactionType)) {
             stockService.updateStock(name, -quantity); // 출고 처리 (음수값 전달)
         }
-        return "redirect:/stock/manage"; // 처리 후 재고 관리 페이지로 리다이렉트
+        return "redirect:/stock/manage";
     }
+
 }

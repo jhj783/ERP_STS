@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -27,7 +28,11 @@ public class SendMoneyApiService {
 	@Autowired
 	private RefreshAccountFromApiService refreshAccountFromApiService;
 	
+    @Value("${api.access.token}")
+    private String accessToken;
+	
 	public void sendMoneyApi(String description, String value) {
+		
 	    String url = "https://developers.nonghyup.com/DrawingTransfer.nh";
 		String finAcno1 = "00820100026740000000000018326"; // 모계좌에서 출금
 		//String finAcno2 = "00820100026740000000000018344"; // 모계좌에 입금
@@ -59,13 +64,13 @@ public class SendMoneyApiService {
 	        "FintechApsno": "001",
 	        "ApiSvcCd": "DrawingTransferA",
 	        "IsTuno": "%s",
-	        "AccessToken": "a7ae51f122fe3639c8d4f890a2ec7e702eba6eeda9869c779f6463e54cf589b9"
+	        "AccessToken": "%s"
 	      },
 	      "FinAcno": "%s",
 	      "Tram": "%s",
 	      "DractOtlt": "%s"
 	    }
-	    """.formatted(formattedDate, istuno, finAcno1, value, description);
+	    """.formatted(formattedDate, istuno, accessToken, finAcno1, value, description);
 	
 	    HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
 	

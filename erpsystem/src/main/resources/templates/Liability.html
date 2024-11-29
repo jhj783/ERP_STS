@@ -41,18 +41,23 @@
             </div>
         </div>
 
-        <!-- 부채 상환 폼 -->
-        <div class="repayment-form" id="repaymentForm">
-            <h3>부채 상환</h3>
-            <label for="repaymentName">부채 이름:</label>
-            <select id="repaymentName"></select>
+		<!-- 부채 상환 폼 -->
+		<div class="repayment-form" id="repaymentForm" style="display: none;">
+		    <h3>부채 상환</h3>
+		    <form th:action="@{/repayDebt}" method="post">
+		        <label for="repaymentName">부채 이름:</label>
+		        <select id="repaymentName" name="name">
+		            <option th:each="liability : ${liabilities}" th:value="${liability.name}" th:text="${liability.name}"></option>
+		        </select>
 
-            <label for="repaymentAmount">상환 금액:</label>
-            <input type="number" id="repaymentAmount" placeholder="상환 금액을 입력하세요" required />
+		        <label for="repaymentAmount">상환 금액:</label>
+		        <input type="number" id="repaymentAmount" name="amount" placeholder="상환 금액을 입력하세요" required />
 
-            <button onclick="submitRepayment()">상환하기</button>
-            <button onclick="hideRepaymentForm()">취소</button>
-        </div>
+		        <button type="submit">상환하기</button>
+		        <button type="button" onclick="hideRepaymentForm()">취소</button>
+		    </form>
+		</div>
+		
     </div>
 
     <script src="js/Liability.js"></script>
