@@ -27,10 +27,10 @@ public class LiabilityController {
 
         try {
             erpLiabilityService.debtRepayment(name, amountStr, false);
-            return "redirect:/liabilities"; // 상환 후 부채 목록 페이지로 리다이렉트
+            return "redirect:/liability"; // 상환 후 부채 목록 페이지로 리다이렉트
         } catch (Exception e) {
             model.addAttribute("errorMessage", "부채 상환 실패: " + e.getMessage());
-            return "LiabilityList";
+            return "Liability";
         }
     }
 }

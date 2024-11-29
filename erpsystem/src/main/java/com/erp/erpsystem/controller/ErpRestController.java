@@ -22,13 +22,11 @@ public class ErpRestController {
     @Autowired
     private ErpLiabilityService erpLiabilityService;
 
-    // GET 요청으로 모든 자산 데이터 조회
     @GetMapping("/asset")
     public List<Asset> getAllAssets() {
         return erpAssetService.getAsset();
     }
 
-    // GET 요청으로 모든 부채 데이터 조회
     @GetMapping("/liability")
     public List<Liability> getAllLiabilities() {
         return erpLiabilityService.getLiability();

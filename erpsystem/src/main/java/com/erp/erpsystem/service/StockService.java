@@ -17,19 +17,16 @@ public class StockService {
 	StockRepository stockRepository;
 	
     public List<String> getAllStockNames() {
-        return stockRepository.findAllNames(); // 이름만 조회
+        return stockRepository.findAllNames();
     }
 	
 	@Transactional
     public void updateStock(String name, int addQuantity) {
-        // findByName을 호출하고, Optional을 처리
         Stock stock = stockRepository.findByName(name)
             .orElseThrow(() -> new IllegalArgumentException("Stock with name " + name + " not found."));
         
-        // 재고 수량 업데이트
         stock.setQuantity(stock.getQuantity() + addQuantity);
 
-        // 재고 저장
         stockRepository.save(stock);
     }
 	
